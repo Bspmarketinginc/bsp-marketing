@@ -19,6 +19,78 @@
 
     html { scroll-behavior: smooth; }
 
+    /* === ANIMATION BASE === */
+    .reveal {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .reveal-left {
+      opacity: 0;
+      transform: translateX(-50px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal-left.visible {
+      opacity: 1;
+      transform: translateX(0);
+    }
+    .reveal-right {
+      opacity: 0;
+      transform: translateX(50px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal-right.visible {
+      opacity: 1;
+      transform: translateX(0);
+    }
+    .reveal-scale {
+      opacity: 0;
+      transform: scale(0.92);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .reveal-scale.visible {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    /* staggered children */
+    .stagger > * {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+    .stagger.visible > *:nth-child(1) { opacity: 1; transform: none; transition-delay: 0s; }
+    .stagger.visible > *:nth-child(2) { opacity: 1; transform: none; transition-delay: 0.12s; }
+    .stagger.visible > *:nth-child(3) { opacity: 1; transform: none; transition-delay: 0.24s; }
+    .stagger.visible > *:nth-child(4) { opacity: 1; transform: none; transition-delay: 0.36s; }
+
+    /* nav active highlight */
+    .nav-links a.active {
+      color: var(--dark);
+      font-weight: 600;
+    }
+
+    /* section flash overlay on nav click */
+    .section-flash {
+      position: relative;
+    }
+    .section-flash::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(255,255,255,0);
+      pointer-events: none;
+      transition: background 0.4s ease;
+      z-index: 1;
+    }
+    .section-flash.flash::after {
+      background: rgba(255,255,255,0.35);
+    }
+
     body {
       font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
       color: var(--dark);
@@ -325,23 +397,25 @@
   </nav>
 
   <!-- HERO -->
-  <section id="hero">
+  <section id="hero" class="section-flash">
     <div class="hero-inner">
-      <p class="hero-eyebrow">Professional Marketing Agency</p>
-      <h1 class="hero-title">We Promote, Sell, <em>and Grow</em> Your Business</h1>
-      <p class="hero-sub">BSP Marketing Inc. helps businesses reach more customers — online and in person — with proven marketing strategies that drive real results.</p>
-      <a href="#contact" class="btn btn-dark">Get in Touch</a>
-      <a href="#services" class="btn btn-outline">Our Services</a>
+      <p class="hero-eyebrow reveal">Professional Marketing Agency</p>
+      <h1 class="hero-title reveal" style="transition-delay:0.15s">We Promote, Sell, <em>and Grow</em> Your Business</h1>
+      <p class="hero-sub reveal" style="transition-delay:0.3s">BSP Marketing Inc. helps businesses reach more customers — online and in person — with proven marketing strategies that drive real results.</p>
+      <div class="reveal" style="transition-delay:0.45s">
+        <a href="#contact" class="btn btn-dark">Get in Touch</a>
+        <a href="#services" class="btn btn-outline">Our Services</a>
+      </div>
     </div>
   </section>
 
   <!-- SERVICES -->
-  <section id="services">
+  <section id="services" class="section-flash">
     <div class="section-inner">
-      <p class="section-label">What We Do</p>
-      <h2 class="section-title">Services Built to Drive Growth</h2>
-      <p class="section-sub">We partner with businesses of all sizes to promote and sell their products — wherever their customers are.</p>
-      <div class="services-grid">
+      <p class="section-label reveal">What We Do</p>
+      <h2 class="section-title reveal" style="transition-delay:0.1s">Services Built to Drive Growth</h2>
+      <p class="section-sub reveal" style="transition-delay:0.2s">We partner with businesses of all sizes to promote and sell their products — wherever their customers are.</p>
+      <div class="services-grid stagger">
         <div class="service-card">
           <div class="service-icon">📣</div>
           <h3>Digital Marketing</h3>
@@ -367,12 +441,12 @@
   </section>
 
   <!-- WHY US -->
-  <section id="why">
+  <section id="why" class="section-flash">
     <div class="section-inner">
-      <p class="section-label">Why BSP Marketing</p>
-      <h2 class="section-title">A Partner You Can Count On</h2>
-      <p class="section-sub">We don't just run campaigns — we take ownership of your growth and deliver measurable outcomes.</p>
-      <div class="why-grid">
+      <p class="section-label reveal">Why BSP Marketing</p>
+      <h2 class="section-title reveal" style="transition-delay:0.1s">A Partner You Can Count On</h2>
+      <p class="section-sub reveal" style="transition-delay:0.2s">We don't just run campaigns — we take ownership of your growth and deliver measurable outcomes.</p>
+      <div class="why-grid stagger">
         <div class="why-item">
           <span class="why-number">01</span>
           <div>
@@ -406,10 +480,10 @@
   </section>
 
   <!-- CONTACT -->
-  <section id="contact">
+  <section id="contact" class="section-flash">
     <div class="section-inner">
       <div class="contact-wrap">
-        <div class="contact-info">
+        <div class="contact-info reveal-left">
           <p class="section-label">Get in Touch</p>
           <h2 class="section-title">Let's Grow Your Business</h2>
           <p>Ready to take your marketing to the next level? Fill out the form and a member of our team will be in touch within one business day.</p>
@@ -419,7 +493,7 @@
             <span><strong>Hours</strong><br>Mon – Fri, 9am – 6pm</span>
           </div>
         </div>
-        <form onsubmit="handleSubmit(event)">
+        <form onsubmit="handleSubmit(event)" class="reveal-right">
           <div class="form-row">
             <input type="text" placeholder="First Name" required />
             <input type="text" placeholder="Last Name" required />
@@ -447,6 +521,46 @@
   </footer>
 
   <script>
+    // Scroll-triggered reveal
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.15 });
+
+    document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale, .stagger').forEach(el => {
+      observer.observe(el);
+    });
+
+    // Active nav link on scroll
+    const sections = document.querySelectorAll('section[id]');
+    const navLinks = document.querySelectorAll('.nav-links a');
+
+    const navObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          navLinks.forEach(a => a.classList.remove('active'));
+          const active = document.querySelector(`.nav-links a[href="#${entry.target.id}"]`);
+          if (active) active.classList.add('active');
+        }
+      });
+    }, { threshold: 0.5 });
+
+    sections.forEach(s => navObserver.observe(s));
+
+    // Flash effect on nav click
+    navLinks.forEach(link => {
+      link.addEventListener('click', (e) => {
+        const target = document.querySelector(link.getAttribute('href'));
+        if (!target) return;
+        target.classList.add('flash');
+        setTimeout(() => target.classList.remove('flash'), 500);
+      });
+    });
+
+    // Contact form
     function handleSubmit(e) {
       e.preventDefault();
       const btn = e.target.querySelector('button');
