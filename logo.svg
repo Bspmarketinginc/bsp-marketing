@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" width="500" height="500">
+  <!-- Background -->
+  <rect width="500" height="500" fill="#0a1628" rx="60"/>
+
+  <!-- Gold accent bar top-left -->
+  <rect x="60" y="60" width="80" height="8" fill="#c9a84c" rx="4"/>
+
+  <!-- Gold accent bar bottom-right -->
+  <rect x="360" y="432" width="80" height="8" fill="#c9a84c" rx="4"/>
+
+  <!-- BSP Letters -->
+  <!-- B -->
+  <text
+    x="68"
+    y="320"
+    font-family="'Segoe UI', 'Arial Black', sans-serif"
+    font-weight="900"
+    font-size="220"
+    fill="#ffffff"
+    letter-spacing="-8"
+  >BSP</text>
+
+  <!-- Underline accent -->
+  <rect x="68" y="338" width="364" height="6" fill="#c9a84c" rx="3"/>
+
+  <!-- Tagline -->
+  <text
+    x="250"
+    y="400"
+    font-family="'Segoe UI', Arial, sans-serif"
+    font-weight="400"
+    font-size="28"
+    fill="#c9a84c"
+    text-anchor="middle"
+    letter-spacing="6"
+  >MARKETING INC.</text>
+</svg>

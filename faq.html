@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FAQ — BSP Marketing Inc.</title>
+  <script src="security.js"></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --white: #ffffff;
+      --off-white: #eef2f7;
+      --light-gray: #c8d6e5;
+      --mid-gray: #c9a84c;
+      --dark: #0a1628;
+      --accent-light: #3a5470;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      color: var(--dark);
+      background: var(--white);
+      line-height: 1.6;
+    }
+
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--light-gray);
+      padding: 0 2rem;
+      height: 68px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .nav-logo {
+      font-size: 1.15rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      color: var(--dark);
+      text-decoration: none;
+    }
+
+    .nav-logo span { color: #c9a84c; font-weight: 400; }
+
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+
+    .nav-links a {
+      text-decoration: none;
+      font-size: 0.9rem;
+      color: var(--accent-light);
+      letter-spacing: 0.02em;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--dark); }
+    .nav-links a.active { color: var(--dark); font-weight: 600; }
+
+    .nav-cta {
+      background: var(--dark);
+      color: var(--white) !important;
+      padding: 0.5rem 1.2rem;
+      border-radius: 4px;
+    }
+
+    .nav-cta:hover { background: var(--accent-light) !important; }
+
+    @media (max-width: 680px) { .nav-links { display: none; } }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    .stagger > * {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+    .stagger.visible > *:nth-child(1) { opacity:1; transform:none; transition-delay:0s; }
+    .stagger.visible > *:nth-child(2) { opacity:1; transform:none; transition-delay:0.08s; }
+    .stagger.visible > *:nth-child(3) { opacity:1; transform:none; transition-delay:0.16s; }
+    .stagger.visible > *:nth-child(4) { opacity:1; transform:none; transition-delay:0.24s; }
+    .stagger.visible > *:nth-child(5) { opacity:1; transform:none; transition-delay:0.32s; }
+    .stagger.visible > *:nth-child(6) { opacity:1; transform:none; transition-delay:0.40s; }
+    .stagger.visible > *:nth-child(7) { opacity:1; transform:none; transition-delay:0.48s; }
+    .stagger.visible > *:nth-child(8) { opacity:1; transform:none; transition-delay:0.56s; }
+
+    .page-hero {
+      padding: 10rem 2rem 5rem;
+      background: var(--off-white);
+      text-align: center;
+    }
+
+    .page-hero .eyebrow {
+      font-size: 0.75rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #c9a84c;
+      margin-bottom: 1rem;
+    }
+
+    .page-hero h1 {
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 1rem;
+    }
+
+    .page-hero p {
+      font-size: 1rem;
+      color: var(--accent-light);
+      max-width: 500px;
+      margin: 0 auto;
+    }
+
+    #faq {
+      padding: 5rem 2rem;
+      background: var(--white);
+    }
+
+    .faq-inner { max-width: 760px; margin: 0 auto; }
+
+    .faq-category {
+      margin-bottom: 3rem;
+    }
+
+    .faq-category-label {
+      font-size: 0.75rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #c9a84c;
+      margin-bottom: 1rem;
+      font-weight: 600;
+    }
+
+    .faq-item {
+      border-bottom: 1px solid var(--light-gray);
+    }
+
+    .faq-question {
+      width: 100%;
+      background: none;
+      border: none;
+      text-align: left;
+      padding: 1.25rem 0;
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--dark);
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      font-family: inherit;
+    }
+
+    .faq-question:hover { color: var(--accent-light); }
+
+    .faq-icon {
+      font-size: 1.2rem;
+      color: #c9a84c;
+      transition: transform 0.3s;
+      min-width: 1.2rem;
+    }
+
+    .faq-item.open .faq-icon { transform: rotate(45deg); }
+
+    .faq-answer {
+      display: none;
+      padding: 0 0 1.25rem;
+      font-size: 0.95rem;
+      color: var(--accent-light);
+      line-height: 1.8;
+      max-width: 640px;
+    }
+
+    .faq-item.open .faq-answer { display: block; }
+
+    #cta {
+      background: var(--dark);
+      text-align: center;
+      padding: 5rem 2rem;
+    }
+
+    #cta h2 {
+      font-size: clamp(1.8rem, 4vw, 2.4rem);
+      font-weight: 700;
+      color: var(--white);
+      letter-spacing: -0.02em;
+      margin-bottom: 1rem;
+    }
+
+    #cta p {
+      font-size: 1rem;
+      color: var(--mid-gray);
+      margin-bottom: 2rem;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 0.85rem 2rem;
+      border-radius: 4px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+
+    .btn-white { background: var(--white); color: var(--dark); }
+    .btn-white:hover { background: var(--off-white); }
+    .btn-outline-white { border: 1.5px solid rgba(255,255,255,0.3); color: var(--white); margin-left: 1rem; }
+    .btn-outline-white:hover { border-color: var(--white); }
+
+    footer {
+      background: var(--dark);
+      color: var(--mid-gray);
+      text-align: center;
+      padding: 2rem;
+      font-size: 0.85rem;
+      border-top: 1px solid rgba(255,255,255,0.08);
+    }
+
+    footer strong { color: var(--white); }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="index.html" class="nav-logo"><img src="logo.svg" height="40" width="40" style="border-radius:6px;vertical-align:middle;margin-right:0.6rem;" alt="BSP Marketing Logo">BSP Marketing <span>Inc.</span></a>
+    <ul class="nav-links">
+      <li><a href="index.html#services">Services</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="why-us.html">Why Us</a></li>
+      <li><a href="how-we-work.html">How We Work</a></li>
+      <li><a href="faq.html" class="active">FAQ</a></li>
+      <li><a href="blog.html">Blog</a></li>
+      <li><a href="reviews.html">Reviews</a></li>
+      <li><a href="contracts.html">Contracts</a></li>
+      <li><a href="index.html#contact" class="nav-cta">Contact Us</a></li>
+    </ul>
+  </nav>
+
+  <div class="page-hero">
+    <p class="eyebrow reveal">Got Questions?</p>
+    <h1 class="reveal" style="transition-delay:0.15s">Frequently Asked Questions</h1>
+    <p class="reveal" style="transition-delay:0.3s">Everything you want to know before working with us. If something's missing, just reach out.</p>
+  </div>
+
+  <section id="faq">
+    <div class="faq-inner">
+
+      <div class="faq-category stagger">
+        <div class="faq-category-label">Getting Started</div>
+
+        <div class="faq-item">
+          <button class="faq-question" onclick="toggleFaq(this)">
+            How do we get started?
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer">We start with a meeting — in person or on a call — where we talk about your business, what you're trying to accomplish, and what timeline you're working with. From there we put together a plan and get moving. No complicated onboarding process.</div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" onclick="toggleFaq(this)">
+            Do I need to sign a long-term contract?
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer">We work month-to-month. You can cancel with 30 days written notice. We'd rather earn your business every month than lock you in.</div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" onclick="toggleFaq(this)">
+            Do you work with businesses outside of Los Angeles?
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer">Yes. We're based in LA but we work with clients anywhere. We're just as comfortable on a Zoom call as we are in person.</div>
+        </div>
+
+      </div>
+
+      <div class="faq-category stagger">
+        <div class="faq-category-label">Services</div>
+
+        <div class="faq-item">
+          <button class="faq-question" onclick="toggleFaq(this)">
+            What services do you offer?
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer">We handle social media management, content creation, paid advertising, email marketing, branding, and in-person promotions. If you're not sure what you need, we'll help you figure it out in our first conversation.</div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" onclick="toggleFaq(this)">
+            Do you manage social media completely, or just give advice?
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer">We handle it completely — strategy, content, posting, and engagement. You don't have to touch it if you don't want to.</div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" onclick="toggleFaq(this)">
+            Do you do in-person marketing, not just online?
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer">Yes — that's one of the things that sets us apart. We do events, pop-ups, trade shows, and direct sales on top of digital marketing. Most agencies stop at online. We don't.</div>
+        </div>
+
+      </div>
+
+      <div class="faq-category stagger">
+        <div class="faq-category-label">Working Together</div>
+
+        <div class="faq-item">
+          <button class="faq-question" onclick="toggleFaq(this)">
+            How do you communicate with clients?
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer">You get a weekly update every week covering what we did, what's coming next, and how things are tracking. On top of that, we're available 24/7 if something comes up.</div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" onclick="toggleFaq(this)">
+            Can we meet in person?
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer">Absolutely. We're based in Los Angeles and happy to meet whenever works for you — mornings, evenings, weekends. We can also do calls or Zoom if that's easier.</div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" onclick="toggleFaq(this)">
+            What if I'm not happy with the work?
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer">Tell us. We'd rather know right away so we can fix it than have you frustrated and not say anything. We include two rounds of revisions in every monthly package, and we're always open to a conversation if something isn't working.</div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" onclick="toggleFaq(this)">
+            How quickly can you get started?
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer">Usually within a week of our first meeting. Once we have what we need from you — account access, brand materials, goals — we hit the ground running.</div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <section id="cta">
+    <h2 class="reveal">Still Have Questions?</h2>
+    <p class="reveal" style="transition-delay:0.15s">Just reach out. We'll get back to you the same day.</p>
+    <div class="reveal" style="transition-delay:0.3s">
+      <a href="index.html#contact" class="btn btn-white">Contact Us</a>
+      <a href="how-we-work.html" class="btn btn-outline-white">How We Work</a>
+    </div>
+  </section>
+
+  <footer>
+    <p>&copy; 2026 <strong>BSP Marketing Inc.</strong> All rights reserved.</p>
+  </footer>
+
+  <script>
+    function toggleFaq(btn) {
+      const item = btn.parentElement;
+      item.classList.toggle('open');
+    }
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) entry.target.classList.add('visible');
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.reveal, .stagger').forEach(el => observer.observe(el));
+  </script>
+
+</body>
+</html>
