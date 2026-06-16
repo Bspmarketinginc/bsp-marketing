@@ -26,12 +26,12 @@
       line-height: 1.6;
     }
 
-    /* ── NAV ── */
+    /* NAV */
     nav {
       position: fixed;
       top: 0; left: 0; right: 0;
       z-index: 1000;
-      background: rgba(255,255,255,0.96);
+      background: rgba(255,255,255,0.97);
       backdrop-filter: blur(8px);
       border-bottom: 1px solid var(--light-gray);
       padding: 0 2rem;
@@ -42,103 +42,136 @@
     }
 
     .nav-logo {
-      font-size: 1.15rem;
+      font-size: 1.1rem;
       font-weight: 700;
-      letter-spacing: 0.04em;
       color: var(--dark);
       text-decoration: none;
       display: flex;
       align-items: center;
       gap: 0.6rem;
       cursor: pointer;
+      white-space: nowrap;
     }
     .nav-logo span { color: var(--accent); font-weight: 400; }
 
-    .nav-links { display: flex; gap: 1.6rem; list-style: none; align-items: center; }
+    .nav-links {
+      display: flex;
+      gap: 1.4rem;
+      list-style: none;
+      align-items: center;
+    }
     .nav-links a {
       text-decoration: none;
-      font-size: 0.88rem;
+      font-size: 0.85rem;
       color: var(--accent-light);
-      letter-spacing: 0.02em;
       transition: color 0.2s;
       cursor: pointer;
+      white-space: nowrap;
     }
     .nav-links a:hover { color: var(--dark); }
     .nav-links a.active { color: var(--dark); font-weight: 600; }
     .nav-cta {
       background: var(--dark) !important;
       color: var(--white) !important;
-      padding: 0.5rem 1.2rem;
+      padding: 0.45rem 1rem;
       border-radius: 4px;
     }
     .nav-cta:hover { background: var(--accent-light) !important; }
 
-    /* hamburger */
-    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; }
-    .hamburger span { display: block; width: 24px; height: 2px; background: var(--dark); border-radius: 2px; transition: all 0.3s; }
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 6px;
+      background: none;
+      border: none;
+    }
+    .hamburger span {
+      display: block;
+      width: 22px;
+      height: 2px;
+      background: var(--dark);
+      border-radius: 2px;
+      transition: all 0.25s;
+    }
 
-    @media (max-width: 900px) {
-      .nav-links { display: none; flex-direction: column; gap: 0; position: absolute; top: 68px; left: 0; right: 0; background: var(--white); border-bottom: 1px solid var(--light-gray); padding: 1rem 2rem; }
+    @media (max-width: 960px) {
+      .nav-links {
+        display: none;
+        position: absolute;
+        top: 68px; left: 0; right: 0;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0;
+        background: var(--white);
+        border-bottom: 1px solid var(--light-gray);
+        padding: 0.5rem 0;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      }
       .nav-links.open { display: flex; }
-      .nav-links a { padding: 0.6rem 0; font-size: 1rem; border-bottom: 1px solid var(--off-white); }
-      .nav-links li:last-child a { border: none; }
-      .nav-cta { margin-top: 0.5rem; text-align: center; display: block; }
+      .nav-links li { border-bottom: 1px solid var(--off-white); }
+      .nav-links li:last-child { border: none; }
+      .nav-links a {
+        display: block;
+        padding: 0.85rem 2rem;
+        font-size: 0.95rem;
+      }
+      .nav-cta {
+        margin: 0.5rem 1.5rem;
+        text-align: center;
+        border-radius: 4px;
+        display: block;
+      }
       .hamburger { display: flex; }
     }
 
-    /* ── PAGES ── */
+    /* PAGES */
     .page { display: none; }
     .page.active { display: block; }
 
-    /* ── ANIMATIONS ── */
-    .reveal {
+    /* ANIMATIONS - only on scroll, not on page switch */
+    .reveal, .reveal-left, .reveal-right {
       opacity: 0;
-      transform: translateY(40px);
-      transition: opacity 0.7s ease, transform 0.7s ease;
+      transform: translateY(32px);
+      transition: opacity 0.65s ease, transform 0.65s ease;
     }
-    .reveal.visible { opacity: 1; transform: none; }
-
-    .reveal-left {
-      opacity: 0;
-      transform: translateX(-50px);
-      transition: opacity 0.7s ease, transform 0.7s ease;
+    .reveal-left { transform: translateX(-40px); }
+    .reveal-right { transform: translateX(40px); }
+    .reveal.visible, .reveal-left.visible, .reveal-right.visible {
+      opacity: 1;
+      transform: none;
     }
-    .reveal-left.visible { opacity: 1; transform: none; }
-
-    .reveal-right {
-      opacity: 0;
-      transform: translateX(50px);
-      transition: opacity 0.7s ease, transform 0.7s ease;
-    }
-    .reveal-right.visible { opacity: 1; transform: none; }
-
     .stagger > * {
       opacity: 0;
-      transform: translateY(30px);
+      transform: translateY(24px);
       transition: opacity 0.5s ease, transform 0.5s ease;
     }
     .stagger.visible > *:nth-child(1) { opacity:1; transform:none; transition-delay:0s; }
-    .stagger.visible > *:nth-child(2) { opacity:1; transform:none; transition-delay:0.1s; }
-    .stagger.visible > *:nth-child(3) { opacity:1; transform:none; transition-delay:0.2s; }
-    .stagger.visible > *:nth-child(4) { opacity:1; transform:none; transition-delay:0.3s; }
-    .stagger.visible > *:nth-child(5) { opacity:1; transform:none; transition-delay:0.4s; }
-    .stagger.visible > *:nth-child(6) { opacity:1; transform:none; transition-delay:0.5s; }
+    .stagger.visible > *:nth-child(2) { opacity:1; transform:none; transition-delay:0.08s; }
+    .stagger.visible > *:nth-child(3) { opacity:1; transform:none; transition-delay:0.16s; }
+    .stagger.visible > *:nth-child(4) { opacity:1; transform:none; transition-delay:0.24s; }
+    .stagger.visible > *:nth-child(5) { opacity:1; transform:none; transition-delay:0.32s; }
+    .stagger.visible > *:nth-child(6) { opacity:1; transform:none; transition-delay:0.4s; }
 
-    /* ── SHARED LAYOUT ── */
+    /* no-anim: skip transitions for instant page switching */
+    .no-anim, .no-anim * { transition: none !important; }
+
+    /* SHARED */
     .page-hero {
       padding: 10rem 2rem 5rem;
       background: var(--off-white);
       text-align: center;
     }
     .page-hero .eyebrow {
-      font-size: 0.75rem;
+      font-size: 0.72rem;
       letter-spacing: 0.18em;
       text-transform: uppercase;
       color: var(--mid-gray);
       margin-bottom: 1rem;
     }
     .page-hero h1 {
-      font-size: clamp(2.2rem, 5vw, 3.5rem);
+      font-size: clamp(2rem, 5vw, 3.4rem);
       font-weight: 700;
       letter-spacing: -0.02em;
       line-height: 1.12;
@@ -154,15 +187,15 @@
     section { padding: 5rem 2rem; }
     .section-inner { max-width: 1080px; margin: 0 auto; }
     .section-label {
-      font-size: 0.75rem;
+      display: block;
+      font-size: 0.72rem;
       letter-spacing: 0.18em;
       text-transform: uppercase;
       color: var(--mid-gray);
       margin-bottom: 0.75rem;
-      display: block;
     }
     .section-title {
-      font-size: clamp(1.8rem, 4vw, 2.4rem);
+      font-size: clamp(1.7rem, 4vw, 2.3rem);
       font-weight: 700;
       letter-spacing: -0.02em;
       line-height: 1.15;
@@ -175,14 +208,13 @@
       margin-bottom: 3rem;
     }
 
-    /* CTA BANNER */
     .cta-banner {
       background: var(--dark);
       text-align: center;
       padding: 5rem 2rem;
     }
     .cta-banner h2 {
-      font-size: clamp(1.8rem, 4vw, 2.4rem);
+      font-size: clamp(1.7rem, 4vw, 2.3rem);
       font-weight: 700;
       color: var(--white);
       letter-spacing: -0.02em;
@@ -190,29 +222,27 @@
     }
     .cta-banner p { font-size: 1rem; color: var(--mid-gray); margin-bottom: 2rem; }
 
-    /* BUTTONS */
     .btn {
       display: inline-block;
-      padding: 0.85rem 2rem;
+      padding: 0.8rem 1.9rem;
       border-radius: 4px;
-      font-size: 0.95rem;
+      font-size: 0.92rem;
       font-weight: 600;
       text-decoration: none;
       transition: all 0.2s;
-      letter-spacing: 0.02em;
       cursor: pointer;
       border: none;
+      font-family: inherit;
     }
     .btn-dark { background: var(--dark); color: var(--white); }
     .btn-dark:hover { background: var(--accent-light); }
-    .btn-outline { border: 1.5px solid var(--light-gray); color: var(--dark); margin-left: 1rem; }
-    .btn-outline:hover { border-color: var(--dark); }
+    .btn-outline { border: 1.5px solid rgba(255,255,255,0.35); color: var(--white); margin-left: 1rem; }
+    .btn-outline:hover { border-color: var(--white); }
     .btn-white { background: var(--white); color: var(--dark); }
     .btn-white:hover { background: var(--off-white); }
     .btn-outline-white { border: 1.5px solid rgba(255,255,255,0.3); color: var(--white); margin-left: 1rem; }
     .btn-outline-white:hover { border-color: var(--white); }
 
-    /* FOOTER */
     footer {
       background: var(--dark);
       color: var(--mid-gray);
@@ -223,10 +253,8 @@
     }
     footer strong { color: var(--white); }
 
-    /* ════════════════════════════════
-       HOME PAGE
-    ════════════════════════════════ */
-    #page-home .hero {
+    /* ── HOME ── */
+    .hero {
       min-height: 100vh;
       display: flex;
       align-items: center;
@@ -237,22 +265,22 @@
       position: relative;
       overflow: hidden;
     }
-    #page-home .hero::before {
+    .hero::before {
       content: '';
       position: absolute;
       inset: 0;
-      background: radial-gradient(circle at 60% 40%, rgba(201,168,76,0.12) 0%, transparent 60%);
+      background: radial-gradient(circle at 60% 40%, rgba(201,168,76,0.1) 0%, transparent 60%);
     }
-    .hero-inner { position: relative; max-width: 820px; }
+    .hero-inner { position: relative; max-width: 800px; }
     .hero-eyebrow {
-      font-size: 0.75rem;
+      font-size: 0.72rem;
       letter-spacing: 0.2em;
       text-transform: uppercase;
       color: var(--accent);
       margin-bottom: 1.5rem;
     }
     .hero-title {
-      font-size: clamp(2.6rem, 6vw, 4.2rem);
+      font-size: clamp(2.4rem, 6vw, 4rem);
       font-weight: 800;
       letter-spacing: -0.03em;
       line-height: 1.08;
@@ -261,20 +289,17 @@
     }
     .hero-title em { color: var(--accent); font-style: normal; }
     .hero-sub {
-      font-size: 1.1rem;
-      color: rgba(255,255,255,0.7);
-      max-width: 560px;
+      font-size: 1.05rem;
+      color: rgba(255,255,255,0.65);
+      max-width: 520px;
       margin: 0 auto 2.5rem;
       line-height: 1.7;
     }
 
-    /* Services */
-    #page-home #services { background: var(--off-white); }
     .services-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 1.5rem;
-      margin-top: 0;
+      gap: 1.25rem;
     }
     .service-card {
       background: var(--white);
@@ -283,54 +308,56 @@
       padding: 2rem;
       transition: box-shadow 0.2s;
     }
-    .service-card:hover { box-shadow: 0 8px 24px rgba(0,0,0,0.07); }
-    .service-icon { font-size: 1.75rem; margin-bottom: 1rem; }
+    .service-card:hover { box-shadow: 0 6px 20px rgba(0,0,0,0.07); }
+    .service-num {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      color: var(--accent);
+      text-transform: uppercase;
+      margin-bottom: 0.75rem;
+    }
     .service-card h3 { font-size: 1rem; font-weight: 700; margin-bottom: 0.5rem; }
     .service-card p { font-size: 0.875rem; color: var(--accent-light); line-height: 1.65; }
 
-    /* Why grid on home */
-    #page-home #why { background: var(--white); }
     .why-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
       gap: 2rem;
-      margin-top: 0;
     }
     .why-item { display: flex; gap: 1.25rem; align-items: flex-start; }
     .why-number {
-      font-size: 1.4rem;
+      font-size: 1.3rem;
       font-weight: 800;
       color: var(--accent);
-      min-width: 2.5rem;
-      line-height: 1;
+      min-width: 2.2rem;
       padding-top: 0.1rem;
     }
-    .why-item h3 { font-size: 1rem; font-weight: 700; margin-bottom: 0.3rem; }
+    .why-item h3 { font-size: 0.975rem; font-weight: 700; margin-bottom: 0.3rem; }
     .why-item p { font-size: 0.875rem; color: var(--accent-light); line-height: 1.65; }
 
-    /* Contact */
-    #page-home #contact { background: var(--off-white); }
     .contact-wrap {
       display: grid;
       grid-template-columns: 1fr 1.2fr;
-      gap: 5rem;
+      gap: 4rem;
       align-items: start;
     }
     @media (max-width: 760px) { .contact-wrap { grid-template-columns: 1fr; gap: 2.5rem; } }
+
     .contact-info p { font-size: 0.975rem; color: var(--accent-light); line-height: 1.75; margin-bottom: 1.5rem; }
     .contact-detail { display: flex; flex-direction: column; gap: 1rem; }
     .contact-detail span { font-size: 0.875rem; color: var(--accent-light); }
-    .contact-detail strong { display: block; color: var(--dark); font-size: 0.8rem; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.2rem; }
+    .contact-detail strong { display: block; color: var(--dark); font-size: 0.75rem; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.15rem; }
 
-    form { display: flex; flex-direction: column; gap: 1rem; }
-    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    form { display: flex; flex-direction: column; gap: 0.9rem; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0.9rem; }
     @media (max-width: 500px) { .form-row { grid-template-columns: 1fr; } }
     form input, form select, form textarea {
       width: 100%;
-      padding: 0.75rem 1rem;
+      padding: 0.7rem 1rem;
       border: 1px solid var(--light-gray);
       border-radius: 4px;
-      font-size: 0.925rem;
+      font-size: 0.9rem;
       font-family: inherit;
       background: var(--white);
       color: var(--dark);
@@ -340,174 +367,168 @@
       outline: none;
       border-color: var(--dark);
     }
-    form textarea { resize: vertical; min-height: 130px; }
+    form textarea { resize: vertical; min-height: 120px; }
+    #form-status {
+      font-size: 0.85rem;
+      padding: 0.6rem 1rem;
+      border-radius: 4px;
+      display: none;
+    }
+    #form-status.success { background: #eafaf1; color: #1e7e4c; display: block; }
+    #form-status.error { background: #fdf0f0; color: #c0392b; display: block; }
 
-    /* ════════════════════════════════
-       ABOUT PAGE
-    ════════════════════════════════ */
+    /* ── ABOUT ── */
     .mission-wrap {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 5rem;
       align-items: center;
     }
-    @media (max-width: 700px) { .mission-wrap { grid-template-columns: 1fr; gap: 2rem; } }
-    .mission-text p { font-size: 1rem; color: var(--accent-light); margin-bottom: 1rem; line-height: 1.75; }
-    .mission-stat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+    @media (max-width: 700px) { .mission-wrap { grid-template-columns: 1fr; gap: 2.5rem; } }
+    .mission-text p { font-size: 0.975rem; color: var(--accent-light); margin-bottom: 1rem; line-height: 1.8; }
+    .stat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; }
     .stat-box {
       background: var(--off-white);
       border: 1px solid var(--light-gray);
       border-radius: 8px;
-      padding: 1.75rem;
+      padding: 1.5rem;
       text-align: center;
     }
-    .stat-box .number { font-size: 2.2rem; font-weight: 800; color: var(--dark); line-height: 1; margin-bottom: 0.4rem; }
-    .stat-box .label { font-size: 0.8rem; color: var(--mid-gray); letter-spacing: 0.06em; text-transform: uppercase; }
+    .stat-box .number { font-size: 2rem; font-weight: 800; color: var(--dark); line-height: 1; margin-bottom: 0.35rem; }
+    .stat-box .label { font-size: 0.75rem; color: var(--mid-gray); letter-spacing: 0.06em; text-transform: uppercase; }
 
     .values-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 1.5rem;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 1.25rem;
       margin-top: 3rem;
     }
     .value-card {
       background: var(--white);
       border: 1px solid var(--light-gray);
       border-radius: 8px;
-      padding: 2rem;
+      padding: 1.75rem;
     }
-    .value-card .icon { font-size: 1.75rem; margin-bottom: 1rem; }
-    .value-card h3 { font-size: 1rem; font-weight: 700; margin-bottom: 0.5rem; }
-    .value-card p { font-size: 0.875rem; color: var(--accent-light); line-height: 1.6; }
+    .value-num { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.12em; color: var(--accent); text-transform: uppercase; margin-bottom: 0.75rem; }
+    .value-card h3 { font-size: 0.975rem; font-weight: 700; margin-bottom: 0.4rem; }
+    .value-card p { font-size: 0.85rem; color: var(--accent-light); line-height: 1.65; }
 
     .team-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
       gap: 2rem;
       margin-top: 3rem;
     }
     .team-card { text-align: center; }
     .team-avatar {
-      width: 90px; height: 90px;
+      width: 80px; height: 80px;
       border-radius: 50%;
-      background: var(--light-gray);
+      background: var(--dark);
       margin: 0 auto 1rem;
       display: flex; align-items: center; justify-content: center;
-      font-size: 2rem;
+      font-size: 1.4rem;
+      font-weight: 800;
+      color: var(--accent);
+      letter-spacing: 0.04em;
     }
-    .team-card h3 { font-size: 1rem; font-weight: 700; margin-bottom: 0.25rem; }
-    .team-card .role { font-size: 0.8rem; color: var(--mid-gray); letter-spacing: 0.05em; text-transform: uppercase; }
+    .team-card h3 { font-size: 1rem; font-weight: 700; margin-bottom: 0.2rem; }
+    .team-card .role { font-size: 0.78rem; color: var(--mid-gray); letter-spacing: 0.04em; text-transform: uppercase; }
 
-    /* ════════════════════════════════
-       WHY US PAGE
-    ════════════════════════════════ */
+    /* ── WHY US ── */
     .intro-wrap {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 5rem;
       align-items: center;
     }
-    @media (max-width: 700px) { .intro-wrap { grid-template-columns: 1fr; gap: 2rem; } }
+    @media (max-width: 700px) { .intro-wrap { grid-template-columns: 1fr; gap: 2.5rem; } }
     .intro-text p { font-size: 0.975rem; color: var(--accent-light); line-height: 1.8; margin-bottom: 1rem; }
-
     .quote-block {
       background: var(--dark);
       border-radius: 8px;
       padding: 2.5rem;
       position: relative;
     }
-    .quote-block::before {
-      content: '"';
-      position: absolute;
-      top: -0.5rem;
-      left: 1.5rem;
-      font-size: 6rem;
-      color: var(--accent);
-      line-height: 1;
-      opacity: 0.3;
-    }
-    .quote-block p { color: var(--white); font-size: 1.05rem; line-height: 1.7; margin-bottom: 1rem; position: relative; }
-    .quote-block span { color: var(--accent); font-size: 0.85rem; }
+    .quote-block p { color: var(--white); font-size: 1rem; line-height: 1.7; margin-bottom: 1rem; }
+    .quote-block span { color: var(--accent); font-size: 0.82rem; }
 
     .diff-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 1.5rem;
+      grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+      gap: 1.25rem;
       margin-top: 3rem;
     }
     .diff-card {
       background: var(--white);
       border: 1px solid var(--light-gray);
       border-radius: 8px;
-      padding: 2rem;
+      padding: 1.75rem;
       transition: box-shadow 0.2s;
     }
-    .diff-card:hover { box-shadow: 0 8px 24px rgba(0,0,0,0.07); }
-    .diff-icon { font-size: 1.75rem; margin-bottom: 1rem; }
-    .diff-card h3 { font-size: 1rem; font-weight: 700; margin-bottom: 0.5rem; }
-    .diff-card p { font-size: 0.875rem; color: var(--accent-light); line-height: 1.65; }
+    .diff-card:hover { box-shadow: 0 6px 20px rgba(0,0,0,0.07); }
+    .diff-num { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.12em; color: var(--accent); text-transform: uppercase; margin-bottom: 0.75rem; }
+    .diff-card h3 { font-size: 0.975rem; font-weight: 700; margin-bottom: 0.4rem; }
+    .diff-card p { font-size: 0.85rem; color: var(--accent-light); line-height: 1.65; }
 
     .table-wrap { overflow-x: auto; margin-top: 2rem; border-radius: 8px; border: 1px solid var(--light-gray); }
-    table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
+    table { width: 100%; border-collapse: collapse; font-size: 0.875rem; min-width: 540px; }
     thead { background: var(--dark); color: var(--white); }
-    th { padding: 1rem 1.25rem; text-align: left; font-weight: 600; letter-spacing: 0.03em; }
-    td { padding: 0.875rem 1.25rem; border-bottom: 1px solid var(--light-gray); }
+    th { padding: 1rem 1.25rem; text-align: left; font-weight: 600; letter-spacing: 0.02em; }
+    td { padding: 0.85rem 1.25rem; border-bottom: 1px solid var(--light-gray); }
     tr:last-child td { border-bottom: none; }
     tr:nth-child(even) { background: var(--off-white); }
     .check { color: #2a9d5c; font-weight: 700; }
     .cross { color: #c0392b; font-weight: 700; }
 
-    /* ════════════════════════════════
-       HOW WE WORK PAGE
-    ════════════════════════════════ */
+    /* ── HOW WE WORK ── */
     .location-banner {
       background: var(--dark);
-      padding: 1.5rem 2rem;
+      padding: 1.25rem 2rem;
       text-align: center;
     }
-    .location-banner p { color: var(--mid-gray); font-size: 0.95rem; letter-spacing: 0.04em; }
+    .location-banner p { color: var(--mid-gray); font-size: 0.9rem; letter-spacing: 0.03em; }
     .location-banner strong { color: var(--white); }
 
-    #page-how #process { background: var(--white); padding: 6rem 2rem; }
     .steps { position: relative; margin-top: 3.5rem; }
     .steps::before {
       content: '';
       position: absolute;
-      left: 2.25rem; top: 0; bottom: 0;
+      left: 2.1rem; top: 0; bottom: 0;
       width: 2px;
       background: var(--light-gray);
     }
-    .step { display: flex; gap: 2rem; margin-bottom: 3rem; position: relative; }
+    @media (max-width: 500px) { .steps::before { left: 1.4rem; } }
+    .step { display: flex; gap: 1.75rem; margin-bottom: 2.75rem; position: relative; }
     .step:last-child { margin-bottom: 0; }
     .step-number {
-      width: 4.5rem; height: 4.5rem; min-width: 4.5rem;
+      width: 4.2rem; height: 4.2rem; min-width: 4.2rem;
       border-radius: 50%;
       background: var(--dark);
       color: var(--white);
-      font-size: 1.2rem; font-weight: 800;
+      font-size: 1.1rem; font-weight: 800;
       display: flex; align-items: center; justify-content: center;
       position: relative; z-index: 1;
     }
-    .step-content { padding-top: 0.75rem; }
-    .step-content h3 { font-size: 1.15rem; font-weight: 700; margin-bottom: 0.5rem; }
-    .step-content p { font-size: 0.95rem; color: var(--accent-light); line-height: 1.75; max-width: 580px; }
+    @media (max-width: 500px) { .step-number { width: 2.8rem; height: 2.8rem; min-width: 2.8rem; font-size: 0.85rem; } }
+    .step-content { padding-top: 0.65rem; }
+    .step-content h3 { font-size: 1.05rem; font-weight: 700; margin-bottom: 0.4rem; }
+    .step-content p { font-size: 0.9rem; color: var(--accent-light); line-height: 1.75; max-width: 560px; }
     .step-tag {
       display: inline-block;
-      font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase;
+      font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase;
       color: var(--mid-gray);
       background: var(--off-white);
       border: 1px solid var(--light-gray);
       border-radius: 20px;
-      padding: 0.2rem 0.75rem;
-      margin-bottom: 0.5rem;
+      padding: 0.18rem 0.7rem;
+      margin-bottom: 0.4rem;
     }
 
-    #page-how #communication { background: var(--off-white); padding: 6rem 2rem; }
     .comm-wrap {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 4rem;
-      align-items: center;
+      align-items: start;
       margin-top: 3rem;
     }
     @media (max-width: 700px) { .comm-wrap { grid-template-columns: 1fr; gap: 2rem; } }
@@ -518,17 +539,12 @@
       border: 1px solid var(--light-gray);
       border-radius: 8px;
       padding: 1.25rem 1.5rem;
-      display: flex; align-items: flex-start; gap: 1rem;
-      transition: box-shadow 0.2s;
     }
-    .comm-card:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.06); }
-    .comm-card .icon { font-size: 1.5rem; margin-top: 0.1rem; }
-    .comm-card h4 { font-size: 0.95rem; font-weight: 700; margin-bottom: 0.25rem; }
-    .comm-card p { font-size: 0.85rem; color: var(--accent-light); margin: 0; line-height: 1.6; }
+    .comm-card h4 { font-size: 0.9rem; font-weight: 700; margin-bottom: 0.25rem; }
+    .comm-card p { font-size: 0.83rem; color: var(--accent-light); line-height: 1.65; }
 
-    #page-how #la { background: var(--white); }
     .la-wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; }
-    @media (max-width: 700px) { .la-wrap { grid-template-columns: 1fr; gap: 2rem; } }
+    @media (max-width: 700px) { .la-wrap { grid-template-columns: 1fr; gap: 2.5rem; } }
     .la-text p { font-size: 0.975rem; color: var(--accent-light); line-height: 1.8; margin-bottom: 1rem; }
     .la-map {
       background: var(--off-white);
@@ -537,17 +553,15 @@
       padding: 3rem 2rem;
       text-align: center;
     }
-    .la-map .pin { font-size: 3rem; margin-bottom: 1rem; }
-    .la-map p { font-size: 1.1rem; font-weight: 700; margin-bottom: 0.4rem; }
-    .la-map span { font-size: 0.85rem; color: var(--accent-light); }
+    .la-map .pin { font-size: 2.5rem; margin-bottom: 0.75rem; }
+    .la-map p { font-size: 1.05rem; font-weight: 700; margin-bottom: 0.35rem; }
+    .la-map span { font-size: 0.83rem; color: var(--accent-light); }
 
-    /* ════════════════════════════════
-       FAQ PAGE
-    ════════════════════════════════ */
-    .faq-inner { max-width: 760px; margin: 0 auto; padding: 5rem 2rem; }
+    /* ── FAQ ── */
+    .faq-inner { max-width: 720px; margin: 0 auto; padding: 5rem 2rem; }
     .faq-category { margin-bottom: 3rem; }
     .faq-category-label {
-      font-size: 0.75rem;
+      font-size: 0.72rem;
       letter-spacing: 0.18em;
       text-transform: uppercase;
       color: var(--mid-gray);
@@ -563,35 +577,33 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 1.25rem 0;
-      font-size: 0.975rem;
+      padding: 1.1rem 0;
+      font-size: 0.95rem;
       font-weight: 600;
       color: var(--dark);
       cursor: pointer;
       text-align: left;
       gap: 1rem;
+      font-family: inherit;
     }
-    .faq-icon { font-size: 1.25rem; color: var(--accent); min-width: 1.25rem; transition: transform 0.3s; }
+    .faq-icon { font-size: 1.2rem; color: var(--accent); min-width: 1rem; transition: transform 0.3s; }
     .faq-item.open .faq-icon { transform: rotate(45deg); }
     .faq-answer {
-      font-size: 0.925rem;
+      font-size: 0.9rem;
       color: var(--accent-light);
       line-height: 1.75;
       max-height: 0;
       overflow: hidden;
-      transition: max-height 0.4s ease, padding 0.3s;
+      transition: max-height 0.35s ease, padding 0.25s;
     }
-    .faq-item.open .faq-answer { max-height: 300px; padding-bottom: 1.25rem; }
+    .faq-item.open .faq-answer { max-height: 300px; padding-bottom: 1.1rem; }
 
-    /* ════════════════════════════════
-       BLOG PAGE
-    ════════════════════════════════ */
+    /* ── BLOG ── */
     .posts-inner { max-width: 1080px; margin: 0 auto; padding: 0 2rem; }
     .posts-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 1.5rem;
-      margin-top: 0;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.25rem;
     }
     .post-card {
       background: var(--white);
@@ -600,198 +612,148 @@
       overflow: hidden;
       transition: box-shadow 0.2s;
     }
-    .post-card:hover { box-shadow: 0 8px 24px rgba(0,0,0,0.08); }
+    .post-card:hover { box-shadow: 0 6px 20px rgba(0,0,0,0.08); }
     .post-thumb {
       background: var(--off-white);
-      height: 140px;
+      height: 130px;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 3rem;
+      font-size: 2.5rem;
     }
-    .post-body { padding: 1.5rem; }
-    .post-tag {
-      font-size: 0.7rem;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--accent);
-      font-weight: 600;
-      margin-bottom: 0.5rem;
-    }
-    .post-title { font-size: 1rem; font-weight: 700; margin-bottom: 0.6rem; line-height: 1.4; }
-    .post-excerpt { font-size: 0.875rem; color: var(--accent-light); line-height: 1.6; margin-bottom: 1rem; }
-    .post-link {
-      font-size: 0.85rem;
-      font-weight: 600;
-      color: var(--dark);
-      cursor: pointer;
-      text-decoration: none;
-      display: block;
-      margin-bottom: 1rem;
-    }
+    .post-body { padding: 1.4rem; }
+    .post-tag { font-size: 0.68rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); font-weight: 600; margin-bottom: 0.4rem; }
+    .post-title { font-size: 0.95rem; font-weight: 700; margin-bottom: 0.5rem; line-height: 1.4; }
+    .post-excerpt { font-size: 0.84rem; color: var(--accent-light); line-height: 1.6; margin-bottom: 0.85rem; }
+    .post-link { font-size: 0.82rem; font-weight: 600; color: var(--dark); cursor: pointer; display: block; margin-bottom: 0.85rem; text-decoration: none; }
     .post-link:hover { color: var(--accent); }
-    .post-meta { display: flex; justify-content: space-between; font-size: 0.78rem; color: var(--light-gray); }
+    .post-meta { display: flex; justify-content: space-between; font-size: 0.75rem; color: var(--light-gray); }
 
     #single-post { display: none; }
-    .single-inner { max-width: 680px; margin: 0 auto; }
-    .back-link { display: inline-block; font-size: 0.875rem; font-weight: 600; color: var(--accent-light); cursor: pointer; margin-bottom: 2rem; text-decoration: none; }
+    .single-inner { max-width: 660px; margin: 0 auto; }
+    .back-link { display: inline-block; font-size: 0.85rem; font-weight: 600; color: var(--accent-light); cursor: pointer; margin-bottom: 2rem; text-decoration: none; }
     .back-link:hover { color: var(--dark); }
-    .single-tag { font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); font-weight: 600; margin-bottom: 0.75rem; }
-    .single-title { font-size: clamp(1.6rem, 4vw, 2.2rem); font-weight: 700; letter-spacing: -0.02em; line-height: 1.2; margin-bottom: 0.75rem; }
-    .single-meta { font-size: 0.825rem; color: var(--light-gray); margin-bottom: 2rem; }
-    .single-content { font-size: 1rem; color: var(--accent-light); line-height: 1.8; }
-    .single-content p { margin-bottom: 1.25rem; }
-    .single-content h2 { font-size: 1.25rem; font-weight: 700; color: var(--dark); margin: 2rem 0 0.75rem; }
-    .single-content ul { padding-left: 1.5rem; margin-bottom: 1.25rem; }
-    .single-content li { margin-bottom: 0.4rem; }
+    .single-tag { font-size: 0.68rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); font-weight: 600; margin-bottom: 0.6rem; }
+    .single-title { font-size: clamp(1.5rem, 4vw, 2.1rem); font-weight: 700; letter-spacing: -0.02em; line-height: 1.2; margin-bottom: 0.6rem; }
+    .single-meta { font-size: 0.8rem; color: var(--light-gray); margin-bottom: 2rem; }
+    .single-content { font-size: 0.975rem; color: var(--accent-light); line-height: 1.8; }
+    .single-content p { margin-bottom: 1.15rem; }
+    .single-content h2 { font-size: 1.2rem; font-weight: 700; color: var(--dark); margin: 1.75rem 0 0.65rem; }
+    .single-content ul { padding-left: 1.4rem; margin-bottom: 1.15rem; }
+    .single-content li { margin-bottom: 0.35rem; }
 
-    /* ════════════════════════════════
-       REVIEWS PAGE
-    ════════════════════════════════ */
-    .reviews-inner { max-width: 1080px; margin: 0 auto; padding: 0 2rem 3rem; }
+    /* ── REVIEWS ── */
+    .reviews-inner { max-width: 1080px; margin: 0 auto; padding: 0 2rem 2rem; }
     .reviews-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap: 1.5rem;
+      grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+      gap: 1.25rem;
     }
     .review-card {
       background: var(--white);
       border: 1px solid var(--light-gray);
       border-radius: 8px;
-      padding: 1.75rem;
-      transition: box-shadow 0.2s;
+      padding: 1.6rem;
     }
-    .review-card:hover { box-shadow: 0 6px 20px rgba(0,0,0,0.07); }
-    .review-card .stars { color: var(--accent); font-size: 1.1rem; letter-spacing: 0.05em; margin-bottom: 0.75rem; }
-    .review-card .review-text { font-size: 0.925rem; color: var(--accent-light); line-height: 1.7; margin-bottom: 1rem; font-style: italic; }
-    .review-card .review-author { font-size: 0.875rem; font-weight: 700; color: var(--dark); }
-    .review-card .review-company { font-size: 0.8rem; color: var(--mid-gray); margin-top: 0.15rem; }
+    .review-card .stars { color: var(--accent); font-size: 1rem; letter-spacing: 0.06em; margin-bottom: 0.65rem; }
+    .review-card .review-text { font-size: 0.9rem; color: var(--accent-light); line-height: 1.7; margin-bottom: 0.85rem; font-style: italic; }
+    .review-card .review-author { font-size: 0.85rem; font-weight: 700; color: var(--dark); }
+    .review-card .review-company { font-size: 0.78rem; color: var(--mid-gray); margin-top: 0.1rem; }
+    .review-date { font-size: 0.72rem; color: var(--light-gray); margin-top: 0.4rem; }
     .no-reviews { text-align: center; padding: 3rem; color: var(--accent-light); }
-    .no-reviews p { margin-bottom: 0.5rem; }
 
-    .submit-inner { max-width: 700px; margin: 0 auto; padding: 5rem 2rem; }
+    .submit-inner { max-width: 680px; margin: 0 auto; padding: 4rem 2rem 5rem; }
+    .review-note { font-size: 0.82rem; color: var(--accent-light); background: var(--off-white); border: 1px solid var(--light-gray); border-radius: 6px; padding: 0.75rem 1rem; margin-bottom: 1.5rem; }
     .review-form {
       background: var(--off-white);
       border: 1px solid var(--light-gray);
       border-radius: 10px;
-      padding: 2.5rem;
-      margin-top: 2rem;
+      padding: 2rem;
     }
-    .form-group { display: flex; flex-direction: column; gap: 0.4rem; }
-    .form-group label { font-size: 0.825rem; font-weight: 600; color: var(--dark); letter-spacing: 0.04em; }
-    .review-form .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; margin-bottom: 1.25rem; }
-    @media (max-width: 560px) { .review-form .form-row { grid-template-columns: 1fr; } }
+    .r-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.1rem; margin-bottom: 1.1rem; }
+    @media (max-width: 540px) { .r-row { grid-template-columns: 1fr; } }
+    .form-group { display: flex; flex-direction: column; gap: 0.35rem; margin-bottom: 1.1rem; }
+    .form-group label { font-size: 0.8rem; font-weight: 600; color: var(--dark); letter-spacing: 0.03em; }
     .review-form input, .review-form textarea {
-      padding: 0.75rem 1rem;
+      padding: 0.7rem 1rem;
       border: 1px solid var(--light-gray);
       border-radius: 4px;
-      font-size: 0.9rem;
+      font-size: 0.88rem;
       font-family: inherit;
       background: var(--white);
       color: var(--dark);
-      transition: border-color 0.2s;
+      width: 100%;
     }
     .review-form input:focus, .review-form textarea:focus { outline: none; border-color: var(--dark); }
-    .review-form textarea { resize: vertical; min-height: 120px; }
-    .review-form .form-group { margin-bottom: 1.25rem; }
+    .review-form textarea { resize: vertical; min-height: 110px; }
 
-    .star-select { display: flex; gap: 0.5rem; margin-top: 0.25rem; }
+    .star-select { display: flex; gap: 0.4rem; margin-top: 0.25rem; }
     .star-select button {
-      background: none;
-      border: none;
-      font-size: 2rem;
-      color: var(--light-gray);
-      cursor: pointer;
-      padding: 0;
-      transition: color 0.15s, transform 0.15s;
-      line-height: 1;
+      background: none; border: none;
+      font-size: 1.9rem; color: var(--light-gray);
+      cursor: pointer; padding: 0; line-height: 1;
+      transition: color 0.12s, transform 0.12s;
     }
-    .star-select button:hover, .star-select button.active { color: var(--accent); transform: scale(1.15); }
+    .star-select button:hover, .star-select button.active { color: var(--accent); transform: scale(1.1); }
 
     .submit-btn {
-      width: 100%;
-      padding: 1rem;
-      background: var(--dark);
-      color: var(--white);
-      border: none;
-      border-radius: 4px;
-      font-size: 1rem;
-      font-weight: 600;
-      cursor: pointer;
+      width: 100%; padding: 0.95rem;
+      background: var(--dark); color: var(--white);
+      border: none; border-radius: 4px;
+      font-size: 0.95rem; font-weight: 600;
+      cursor: pointer; font-family: inherit;
       transition: background 0.2s;
-      font-family: inherit;
     }
     .submit-btn:hover { background: var(--accent-light); }
-
     .success-msg { display: none; text-align: center; padding: 2rem; }
-    .success-msg .checkmark { font-size: 3rem; margin-bottom: 1rem; }
-    .success-msg h3 { font-size: 1.2rem; font-weight: 700; margin-bottom: 0.5rem; }
-    .success-msg p { font-size: 0.9rem; color: var(--accent-light); }
+    .success-msg .checkmark { font-size: 2.5rem; margin-bottom: 0.75rem; }
+    .success-msg h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 0.4rem; }
+    .success-msg p { font-size: 0.88rem; color: var(--accent-light); }
 
-    /* ════════════════════════════════
-       CONTRACTS PAGE
-    ════════════════════════════════ */
-    .docs-inner { max-width: 860px; margin: 0 auto; padding: 5rem 2rem; display: flex; flex-direction: column; gap: 1rem; }
-    .doc-card {
-      border: 1px solid var(--light-gray);
-      border-radius: 8px;
-      overflow: hidden;
-      background: var(--white);
-    }
+    /* ── CONTRACTS ── */
+    .docs-inner { max-width: 840px; margin: 0 auto; padding: 4rem 2rem 5rem; display: flex; flex-direction: column; gap: 0.85rem; }
+    .doc-card { border: 1px solid var(--light-gray); border-radius: 8px; overflow: hidden; background: var(--white); }
     .doc-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 1.25rem 1.5rem;
-      cursor: pointer;
-      transition: background 0.2s;
-      user-select: none;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 1.1rem 1.4rem; cursor: pointer;
+      transition: background 0.2s; user-select: none;
     }
     .doc-header:hover { background: var(--off-white); }
-    .doc-header-left { display: flex; align-items: center; gap: 1rem; }
-    .doc-icon { font-size: 1.5rem; }
-    .doc-title { font-size: 0.975rem; font-weight: 700; margin-bottom: 0.15rem; }
-    .doc-subtitle { font-size: 0.8rem; color: var(--accent-light); }
-    .doc-toggle { font-size: 0.85rem; color: var(--accent-light); transition: transform 0.3s; }
+    .doc-header-left { display: flex; align-items: center; gap: 0.85rem; }
+    .doc-icon { font-size: 1.4rem; }
+    .doc-title { font-size: 0.92rem; font-weight: 700; margin-bottom: 0.1rem; }
+    .doc-subtitle { font-size: 0.76rem; color: var(--accent-light); }
+    .doc-toggle { font-size: 0.8rem; color: var(--accent-light); transition: transform 0.3s; }
     .doc-card.open .doc-toggle { transform: rotate(180deg); }
     .doc-body { display: none; border-top: 1px solid var(--light-gray); }
     .doc-card.open .doc-body { display: block; }
-    .doc-actions { display: flex; gap: 0.75rem; padding: 1rem 1.5rem; background: var(--off-white); border-bottom: 1px solid var(--light-gray); }
-    .btn-sm {
-      padding: 0.45rem 1rem;
-      border: none;
-      border-radius: 4px;
-      font-size: 0.8rem;
-      font-weight: 600;
-      cursor: pointer;
-      font-family: inherit;
-      transition: background 0.2s;
-    }
+    .doc-actions { display: flex; gap: 0.6rem; padding: 0.85rem 1.4rem; background: var(--off-white); border-bottom: 1px solid var(--light-gray); }
+    .btn-sm { padding: 0.4rem 0.9rem; border: none; border-radius: 4px; font-size: 0.78rem; font-weight: 600; cursor: pointer; font-family: inherit; transition: background 0.2s; }
     .btn-dark-sm { background: var(--dark); color: var(--white); }
     .btn-dark-sm:hover { background: var(--accent-light); }
     .btn-outline-sm { background: var(--white); border: 1px solid var(--light-gray); color: var(--dark); }
     .btn-outline-sm:hover { background: var(--off-white); }
-    .doc-content { padding: 2rem 1.5rem; font-size: 0.875rem; line-height: 1.8; color: var(--accent-light); }
-    .doc-content h2 { font-size: 1rem; text-align: center; color: var(--dark); margin-bottom: 0.25rem; }
-    .doc-tagline { text-align: center; font-size: 0.78rem; color: var(--mid-gray); margin-bottom: 1.5rem; }
-    .doc-content h3 { font-size: 0.875rem; font-weight: 700; color: var(--dark); margin: 1.25rem 0 0.4rem; padding-bottom: 0.2rem; border-bottom: 1px solid var(--light-gray); }
-    .doc-content ul { padding-left: 1.4rem; margin: 0.5rem 0; }
-    .doc-content li { margin-bottom: 0.3rem; }
-    .field-line { display: inline-block; border-bottom: 1px solid #999; min-width: 180px; }
-    .field-block { border: 1px solid var(--light-gray); min-height: 1.8rem; margin: 0.25rem 0 0.5rem; padding: 0.25rem 0.5rem; border-radius: 3px; background: var(--off-white); display: block; }
-    .checkbox-row { display: flex; align-items: center; gap: 0.5rem; margin: 0.25rem 0; }
-    .sig-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid var(--light-gray); }
-    .sig-block p { font-weight: 700; color: var(--dark); margin-bottom: 0.75rem; }
-    .sig-line { border-bottom: 1px solid #999; height: 2rem; margin-bottom: 0.25rem; }
-    .sig-label { font-size: 0.75rem; color: var(--mid-gray); }
+    .doc-content { padding: 1.75rem 1.4rem; font-size: 0.855rem; line-height: 1.8; color: var(--accent-light); }
+    .doc-content h2 { font-size: 0.95rem; text-align: center; color: var(--dark); margin-bottom: 0.2rem; }
+    .doc-tagline { text-align: center; font-size: 0.75rem; color: var(--mid-gray); margin-bottom: 1.4rem; }
+    .doc-content h3 { font-size: 0.84rem; font-weight: 700; color: var(--dark); margin: 1.15rem 0 0.35rem; padding-bottom: 0.2rem; border-bottom: 1px solid var(--light-gray); }
+    .doc-content ul { padding-left: 1.3rem; margin: 0.4rem 0; }
+    .doc-content li { margin-bottom: 0.25rem; }
+    .field-line { display: inline-block; border-bottom: 1px solid #999; min-width: 160px; }
+    .field-block { border: 1px solid var(--light-gray); min-height: 1.7rem; margin: 0.2rem 0 0.4rem; padding: 0.2rem 0.4rem; border-radius: 3px; background: var(--off-white); display: block; }
+    .checkbox-row { display: flex; align-items: center; gap: 0.4rem; margin: 0.2rem 0; }
+    .sig-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-top: 1.75rem; padding-top: 1.25rem; border-top: 1px solid var(--light-gray); }
+    .sig-block p { font-weight: 700; color: var(--dark); margin-bottom: 0.65rem; }
+    .sig-line { border-bottom: 1px solid #999; height: 1.8rem; margin-bottom: 0.2rem; }
+    .sig-label { font-size: 0.72rem; color: var(--mid-gray); }
   </style>
 </head>
 <body>
 
-<!-- ── NAV ── -->
+<!-- NAV -->
 <nav>
   <div class="nav-logo" onclick="showPage('home')">
-    <img src="logo.svg" height="40" width="40" style="border-radius:6px;" alt="BSP">
+    <img src="logo.svg" height="38" width="38" style="border-radius:6px;" alt="BSP">
     BSP Marketing <span>Inc.</span>
   </div>
   <button class="hamburger" onclick="toggleMenu()" aria-label="Menu">
@@ -806,52 +768,50 @@
     <li><a onclick="showPage('blog')" data-page="blog">Blog</a></li>
     <li><a onclick="showPage('reviews')" data-page="reviews">Reviews</a></li>
     <li><a onclick="showPage('contracts')" data-page="contracts">Contracts</a></li>
-    <li><a onclick="showPage('home'); setTimeout(()=>document.getElementById('contact').scrollIntoView({behavior:'smooth'}),80)" class="nav-cta">Contact Us</a></li>
+    <li><a onclick="showPage('home'); setTimeout(()=>document.getElementById('contact').scrollIntoView({behavior:'smooth'}),60)" class="nav-cta">Contact Us</a></li>
   </ul>
 </nav>
 
-<!-- ══════════════════════════════════════
-     HOME
-══════════════════════════════════════ -->
+<!-- ════ HOME ════ -->
 <div class="page active" id="page-home">
 
   <section class="hero">
     <div class="hero-inner">
-      <p class="hero-eyebrow reveal">Professional Marketing Agency — Los Angeles, CA</p>
-      <h1 class="hero-title reveal" style="transition-delay:0.15s">We Promote, Sell, <em>and Grow</em> Your Business</h1>
-      <p class="hero-sub reveal" style="transition-delay:0.3s">We help businesses get in front of more customers — online and in person. No fluff, just real work that gets results.</p>
-      <div class="reveal" style="transition-delay:0.45s">
-        <a onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})" class="btn btn-dark" style="cursor:pointer;">Get in Touch</a>
-        <a onclick="document.getElementById('services').scrollIntoView({behavior:'smooth'})" class="btn btn-outline" style="color:#fff;border-color:rgba(255,255,255,0.35);margin-left:1rem;cursor:pointer;">Our Services</a>
+      <p class="hero-eyebrow reveal">Marketing Agency — Los Angeles, CA</p>
+      <h1 class="hero-title reveal" style="transition-delay:.15s">We Help Businesses<br><em>Sell More</em></h1>
+      <p class="hero-sub reveal" style="transition-delay:.3s">Online, in person, wherever your customers are. We handle the marketing so you can focus on running your business.</p>
+      <div class="reveal" style="transition-delay:.45s">
+        <button onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})" class="btn btn-dark">Get in Touch</button>
+        <button onclick="document.getElementById('services').scrollIntoView({behavior:'smooth'})" class="btn btn-outline">Our Services</button>
       </div>
     </div>
   </section>
 
-  <section id="services">
+  <section id="services" style="background:var(--off-white);">
     <div class="section-inner">
-      <p class="section-label reveal">What We Do</p>
-      <h2 class="section-title reveal" style="transition-delay:0.1s">Services Built Around Your Business</h2>
-      <p class="section-sub reveal" style="transition-delay:0.2s">We work with businesses of all sizes to help them sell more — whether that's online, in person, or both.</p>
+      <span class="section-label reveal">What We Do</span>
+      <h2 class="section-title reveal" style="transition-delay:.1s">Services Built Around Your Business</h2>
+      <p class="section-sub reveal" style="transition-delay:.2s">We work with businesses of all sizes. Whether you need digital marketing, someone to show up in person, or both — we can handle it.</p>
       <div class="services-grid stagger">
         <div class="service-card">
-          <div class="service-icon">📣</div>
+          <div class="service-num">01</div>
           <h3>Digital Marketing</h3>
-          <p>We run your social media, paid ads, SEO, and email marketing so your business shows up where your customers are spending time.</p>
+          <p>Social media, paid ads, email, SEO. We run it so your business shows up where people are actually spending time online.</p>
         </div>
         <div class="service-card">
-          <div class="service-icon">🤝</div>
+          <div class="service-num">02</div>
           <h3>In-Person Promotions</h3>
-          <p>We show up in person too — events, pop-ups, trade shows, direct sales. We go wherever your customers are.</p>
+          <p>Events, pop-ups, trade shows, direct sales. We show up in person because a lot of business still happens face to face.</p>
         </div>
         <div class="service-card">
-          <div class="service-icon">📊</div>
+          <div class="service-num">03</div>
           <h3>Sales Strategy</h3>
-          <p>We help you figure out how to sell, who to sell to, and how to track what's actually working.</p>
+          <p>We help you figure out who to sell to, how to reach them, and how to tell what's actually working and what isn't.</p>
         </div>
         <div class="service-card">
-          <div class="service-icon">🎨</div>
+          <div class="service-num">04</div>
           <h3>Brand Development</h3>
-          <p>We help your business look and sound the part — consistent, professional, and memorable no matter where people find you.</p>
+          <p>We clean up how your business looks and sounds so people take it seriously wherever they find you.</p>
         </div>
       </div>
     </div>
@@ -859,36 +819,36 @@
 
   <section id="why" style="background:var(--white);">
     <div class="section-inner">
-      <p class="section-label reveal">Why BSP Marketing</p>
-      <h2 class="section-title reveal" style="transition-delay:0.1s">Why Work With Us</h2>
-      <p class="section-sub reveal" style="transition-delay:0.2s">We actually care about the businesses we work with. Here's what that looks like in practice.</p>
+      <span class="section-label reveal">Why BSP Marketing</span>
+      <h2 class="section-title reveal" style="transition-delay:.1s">Why Work With Us</h2>
+      <p class="section-sub reveal" style="transition-delay:.2s">We're a small team. That means you actually get people who care about your account, not someone who just picked up your file.</p>
       <div class="why-grid stagger">
         <div class="why-item">
           <span class="why-number">01</span>
           <div>
-            <h3>Results-Driven</h3>
-            <p>We focus on what actually moves the needle — not vanity numbers that look good on paper.</p>
+            <h3>Sales and Leads, Not Vanity Numbers</h3>
+            <p>We track what actually matters. Not impressions or likes.</p>
           </div>
         </div>
         <div class="why-item">
           <span class="why-number">02</span>
           <div>
-            <h3>Online & In-Person</h3>
-            <p>Most agencies only do digital. We do digital and in-person — because that's where the real opportunities are.</p>
+            <h3>Online and In-Person</h3>
+            <p>Most agencies only do digital. We do both, because that's where the real opportunities are.</p>
           </div>
         </div>
         <div class="why-item">
           <span class="why-number">03</span>
           <div>
-            <h3>Dedicated Team</h3>
-            <p>You'll always have someone to call who actually knows your account — not a random rep who just picked up your file.</p>
+            <h3>You Can Actually Reach Us</h3>
+            <p>When you call, someone who knows your account picks up. Not a new rep reading your notes for the first time.</p>
           </div>
         </div>
         <div class="why-item">
           <span class="why-number">04</span>
           <div>
-            <h3>Scalable Solutions</h3>
-            <p>Whether you're just starting out or already established, we build around where you are — not a one-size-fits-all package.</p>
+            <h3>Built Around You, Not a Template</h3>
+            <p>We don't do one-size-fits-all packages. We figure out what you actually need and start from there.</p>
           </div>
         </div>
       </div>
@@ -899,23 +859,23 @@
     <div class="section-inner">
       <div class="contact-wrap">
         <div class="contact-info reveal-left">
-          <p class="section-label">Get in Touch</p>
+          <span class="section-label">Get in Touch</span>
           <h2 class="section-title">Let's Talk</h2>
-          <p>Fill out the form and we'll get back to you within one business day. No pressure, just a conversation.</p>
+          <p>Fill out the form and we'll get back to you within one business day. No pressure, just a real conversation about your business.</p>
           <div class="contact-detail">
             <span><strong>Email</strong>bspmarketinginc@gmail.com</span>
             <span><strong>Phone</strong>(818) 932-7669</span>
-            <span><strong>Hours</strong>Mon – Fri, 9am – 6pm PST</span>
+            <span><strong>Availability</strong>24/7 — reach out any time</span>
           </div>
         </div>
-        <form onsubmit="handleSubmit(event)" class="reveal-right">
+        <form id="contact-form" class="reveal-right">
           <div class="form-row">
-            <input type="text" placeholder="First Name" required />
-            <input type="text" placeholder="Last Name" required />
+            <input type="text" name="first_name" placeholder="First Name" required />
+            <input type="text" name="last_name" placeholder="Last Name" required />
           </div>
-          <input type="email" placeholder="Email Address" required />
-          <input type="text" placeholder="Company Name" />
-          <select>
+          <input type="email" name="email" placeholder="Email Address" required />
+          <input type="text" name="company" placeholder="Company Name" />
+          <select name="service">
             <option value="" disabled selected>Service of Interest</option>
             <option>Digital Marketing</option>
             <option>In-Person Promotions</option>
@@ -923,8 +883,11 @@
             <option>Brand Development</option>
             <option>Other</option>
           </select>
-          <textarea placeholder="Tell us about your business and what you're looking to achieve..."></textarea>
-          <button type="submit" class="btn btn-dark">Send Message</button>
+          <textarea name="message" placeholder="Tell us about your business and what you're trying to accomplish..."></textarea>
+          <div id="form-status"></div>
+          <!-- SETUP: Create a free account at formspree.io, add bspmarketinginc@gmail.com,
+               then replace YOUR_FORM_ID below with your actual form ID -->
+          <button type="submit" class="btn btn-dark" id="contact-submit">Send Message</button>
         </form>
       </div>
     </div>
@@ -933,26 +896,24 @@
   <footer><p>&copy; 2026 <strong>BSP Marketing Inc.</strong> All rights reserved.</p></footer>
 </div>
 
-<!-- ══════════════════════════════════════
-     ABOUT
-══════════════════════════════════════ -->
+<!-- ════ ABOUT ════ -->
 <div class="page" id="page-about">
   <div class="page-hero">
     <p class="eyebrow reveal">Our Story</p>
-    <h1 class="reveal" style="transition-delay:0.15s">Built to Help Businesses Grow</h1>
-    <p class="reveal" style="transition-delay:0.3s">BSP Marketing started with a simple idea: most marketing agencies aren't actually that helpful. We wanted to do it differently.</p>
+    <h1 class="reveal" style="transition-delay:.15s">Built to Help Businesses Grow</h1>
+    <p class="reveal" style="transition-delay:.3s">BSP Marketing started because most agencies weren't actually doing their job. We wanted to build something different.</p>
   </div>
 
   <section style="background:var(--white);">
     <div class="section-inner">
       <div class="mission-wrap">
         <div class="mission-text reveal-left">
-          <p class="section-label">Our Mission</p>
-          <h2 class="section-title">We Grow Businesses, Not Just Campaigns</h2>
-          <p>We work with businesses to help them sell more — online and in person. We're small enough to actually care, and experienced enough to know what works.</p>
-          <p>Whether that's running ads, managing social media, or showing up to an event — we do what it takes.</p>
+          <span class="section-label">Our Mission</span>
+          <h2 class="section-title">We Help Businesses Sell More</h2>
+          <p>We work with businesses on both the online and in-person side of marketing. We're small enough that you actually matter to us, and we've been doing this long enough to know what works.</p>
+          <p>Whether that means running your ads, managing your social media, or showing up to an event in person, we handle it.</p>
         </div>
-        <div class="mission-stat-grid reveal-right">
+        <div class="stat-grid reveal-right">
           <div class="stat-box"><div class="number">2</div><div class="label">Clients Served</div></div>
           <div class="stat-box"><div class="number">2+</div><div class="label">Years Experience</div></div>
           <div class="stat-box"><div class="number">2x</div><div class="label">Avg. ROI</div></div>
@@ -964,64 +925,86 @@
 
   <section style="background:var(--off-white);">
     <div class="section-inner">
-      <p class="section-label reveal">What Drives Us</p>
-      <h2 class="section-title reveal" style="transition-delay:0.1s">Our Core Values</h2>
+      <span class="section-label reveal">What Drives Us</span>
+      <h2 class="section-title reveal" style="transition-delay:.1s">How We Operate</h2>
       <div class="values-grid stagger">
-        <div class="value-card"><div class="icon">🎯</div><h3>Results First</h3><p>We measure everything against real outcomes — leads, sales, and growth — not vanity metrics.</p></div>
-        <div class="value-card"><div class="icon">🤝</div><h3>True Partnership</h3><p>We treat your business like our own, investing in your success at every step of the process.</p></div>
-        <div class="value-card"><div class="icon">💡</div><h3>Creative Thinking</h3><p>We bring fresh ideas and unconventional strategies to cut through the noise and stand out.</p></div>
-        <div class="value-card"><div class="icon">🔍</div><h3>Full Transparency</h3><p>No hidden fees, no vague reports. You always know exactly what we're doing and why.</p></div>
+        <div class="value-card">
+          <div class="value-num">01</div>
+          <h3>Sales and Leads First</h3>
+          <p>We track actual results. Sales, leads, customers through the door. Not follower counts or impressions.</p>
+        </div>
+        <div class="value-card">
+          <div class="value-num">02</div>
+          <h3>We Treat It Like Our Business</h3>
+          <p>We're the kind of agency that texts you back at 10pm. Your business matters to us. That's not something you hear from most agencies, but it's the truth.</p>
+        </div>
+        <div class="value-card">
+          <div class="value-num">03</div>
+          <h3>We Try Things</h3>
+          <p>We'll test ideas most agencies won't bother with. If something isn't working, we change it. We don't just run the same playbook every time.</p>
+        </div>
+        <div class="value-card">
+          <div class="value-num">04</div>
+          <h3>No Runaround</h3>
+          <p>You'll always know where your money went and what we did with it. No vague reports, no dodging questions.</p>
+        </div>
       </div>
     </div>
   </section>
 
   <section style="background:var(--white);">
     <div class="section-inner">
-      <p class="section-label reveal">The People Behind BSP</p>
-      <h2 class="section-title reveal" style="transition-delay:0.1s">Meet Our Team</h2>
+      <span class="section-label reveal">The People Behind BSP</span>
+      <h2 class="section-title reveal" style="transition-delay:.1s">Meet Our Team</h2>
       <div class="team-grid stagger">
-        <div class="team-card"><div class="team-avatar">👤</div><h3>Billy Payne</h3><p class="role">Founder, CEO & Marketing Lead</p></div>
-        <div class="team-card"><div class="team-avatar">👤</div><h3>Matthew Kim</h3><p class="role">Sales Director</p></div>
+        <div class="team-card">
+          <div class="team-avatar">BP</div>
+          <h3>Billy Payne</h3>
+          <p class="role">Founder, CEO &amp; Marketing Lead</p>
+        </div>
+        <div class="team-card">
+          <div class="team-avatar">MK</div>
+          <h3>Matthew Kim</h3>
+          <p class="role">Sales Director</p>
+        </div>
       </div>
     </div>
   </section>
 
   <div class="cta-banner">
     <h2 class="reveal">Ready to Work Together?</h2>
-    <p class="reveal" style="transition-delay:0.15s">Let's talk about how BSP Marketing can help your business reach its next level.</p>
-    <div class="reveal" style="transition-delay:0.3s">
-      <a onclick="showPage('home'); setTimeout(()=>document.getElementById('contact').scrollIntoView({behavior:'smooth'}),80)" class="btn btn-white" style="cursor:pointer;">Get in Touch</a>
-      <a onclick="showPage('home'); setTimeout(()=>document.getElementById('services').scrollIntoView({behavior:'smooth'}),80)" class="btn btn-outline-white" style="cursor:pointer;">View Services</a>
+    <p class="reveal" style="transition-delay:.15s">Reach out and let's talk about what we can do for your business.</p>
+    <div class="reveal" style="transition-delay:.3s">
+      <button onclick="showPage('home'); setTimeout(()=>document.getElementById('contact').scrollIntoView({behavior:'smooth'}),60)" class="btn btn-white">Get in Touch</button>
+      <button onclick="showPage('home'); setTimeout(()=>document.getElementById('services').scrollIntoView({behavior:'smooth'}),60)" class="btn btn-outline-white">View Services</button>
     </div>
   </div>
 
   <footer><p>&copy; 2026 <strong>BSP Marketing Inc.</strong> All rights reserved.</p></footer>
 </div>
 
-<!-- ══════════════════════════════════════
-     WHY US
-══════════════════════════════════════ -->
+<!-- ════ WHY US ════ -->
 <div class="page" id="page-why">
   <div class="page-hero">
     <p class="eyebrow reveal">The BSP Difference</p>
-    <h1 class="reveal" style="transition-delay:0.15s">Most Agencies Do the Minimum.<br><em>We Don't.</em></h1>
-    <p class="reveal" style="transition-delay:0.3s">When you sign with BSP Marketing Inc., you're not getting a vendor — you're getting a team that treats your business like it's their own.</p>
+    <h1 class="reveal" style="transition-delay:.15s">Most Agencies Do the Minimum.<br><em style="font-style:normal;color:var(--accent);">We Don't.</em></h1>
+    <p class="reveal" style="transition-delay:.3s">When you sign with BSP Marketing, you're not getting a vendor. You're getting a team that treats your business like it's their own.</p>
   </div>
 
   <section style="background:var(--white);">
     <div class="section-inner">
       <div class="intro-wrap">
         <div class="intro-text reveal-left">
-          <p class="section-label">Why It Matters</p>
+          <span class="section-label">Why It Matters</span>
           <h2 class="section-title">Most Agencies Sign You and Then Disappear</h2>
-          <p>You've probably dealt with it — big pitch, signed a contract, then you're talking to a different person every time you call. Nothing gets done on time, the results aren't there, and you're stuck paying monthly anyway.</p>
-          <p>That's not how we work. The people who brought you on are the same people doing the work. You have our numbers. We pick up.</p>
+          <p>You've probably dealt with it. Big pitch, signed a contract, then you're talking to a different person every time you call. Nothing gets done on time, the results aren't there, and you're still paying every month.</p>
+          <p>That's not how we operate. The people who brought you on are the same people doing the work. You have our numbers. We pick up.</p>
           <p>We'd rather have a small number of clients we're proud of than a long list we can't keep up with.</p>
         </div>
         <div class="reveal-right">
           <div class="quote-block">
             <p>"We're not here to just run your ads and send a report at the end of the month. We actually care if your business grows."</p>
-            <span>— Billy Payne, Founder & CEO</span>
+            <span>- Billy Payne, Founder &amp; CEO</span>
           </div>
         </div>
       </div>
@@ -1030,34 +1013,58 @@
 
   <section style="background:var(--off-white);">
     <div class="section-inner">
-      <p class="section-label reveal">What Sets Us Apart</p>
-      <h2 class="section-title reveal" style="transition-delay:0.1s">Here's What Makes Us Different</h2>
+      <span class="section-label reveal">What Sets Us Apart</span>
+      <h2 class="section-title reveal" style="transition-delay:.1s">Here's What Makes Us Different</h2>
       <div class="diff-grid stagger">
-        <div class="diff-card"><div class="diff-icon">🕐</div><h3>We're Available 24/7</h3><p>Something comes up at 10pm? Text us. Need something changed before tomorrow morning? Done. We don't have office hours.</p></div>
-        <div class="diff-card"><div class="diff-icon">📱</div><h3>We Run Your Social Media</h3><p>We handle everything — what to post, when to post it, and how to grow your following. You don't have to think about it.</p></div>
-        <div class="diff-card"><div class="diff-icon">🌐</div><h3>We Show Up Online and In Person</h3><p>Most agencies only do digital. We do both. Events, pop-ups, direct sales — we're comfortable going wherever the customers are.</p></div>
-        <div class="diff-card"><div class="diff-icon">🚀</div><h3>We Do More Than What's Asked</h3><p>If we see something that could help your business, we're going to bring it up. We don't wait to be told — we just go.</p></div>
-        <div class="diff-card"><div class="diff-icon">🤝</div><h3>You're Not a Number to Us</h3><p>Big agencies have hundreds of clients. We don't. When you call, we know who you are and what's going on with your account.</p></div>
-        <div class="diff-card"><div class="diff-icon">📅</div><h3>We Work Around Your Schedule</h3><p>Mornings, evenings, weekends — whatever works for you. We can meet in person in LA or hop on a call. Just let us know.</p></div>
+        <div class="diff-card">
+          <div class="diff-num">01</div>
+          <h3>We're Available 24/7</h3>
+          <p>Something comes up at 10pm? Text us. Need something changed before tomorrow? Done. We don't have office hours.</p>
+        </div>
+        <div class="diff-card">
+          <div class="diff-num">02</div>
+          <h3>We Run Your Social Media</h3>
+          <p>We handle everything. What to post, when to post it, how to grow your following. You don't have to touch it if you don't want to.</p>
+        </div>
+        <div class="diff-card">
+          <div class="diff-num">03</div>
+          <h3>Online and In-Person</h3>
+          <p>Most agencies only do digital. We do both. Events, pop-ups, direct sales. We go wherever the customers are.</p>
+        </div>
+        <div class="diff-card">
+          <div class="diff-num">04</div>
+          <h3>We Do More Than What's Asked</h3>
+          <p>If we see something that could help your business, we bring it up. We don't wait to be told.</p>
+        </div>
+        <div class="diff-card">
+          <div class="diff-num">05</div>
+          <h3>You're Not a Number</h3>
+          <p>Big agencies have hundreds of clients. We don't. When you call, we know who you are and what's going on with your account.</p>
+        </div>
+        <div class="diff-card">
+          <div class="diff-num">06</div>
+          <h3>We Work Around Your Schedule</h3>
+          <p>Mornings, evenings, weekends. We can meet in person in LA or jump on a call. Just let us know.</p>
+        </div>
       </div>
     </div>
   </section>
 
   <section style="background:var(--white);">
     <div class="section-inner">
-      <p class="section-label reveal">See the Difference</p>
-      <h2 class="section-title reveal" style="transition-delay:0.1s">BSP vs. The Typical Agency</h2>
-      <div class="table-wrap reveal" style="transition-delay:0.2s">
+      <span class="section-label reveal">See the Difference</span>
+      <h2 class="section-title reveal" style="transition-delay:.1s">BSP vs. The Typical Agency</h2>
+      <div class="table-wrap reveal" style="transition-delay:.2s">
         <table>
           <thead><tr><th>Feature</th><th>BSP Marketing Inc.</th><th>Typical Agency</th></tr></thead>
           <tbody>
-            <tr><td>24-Hour Availability</td><td><span class="check">✔</span> Always on</td><td><span class="cross">✖</span> Business hours only</td></tr>
-            <tr><td>Social Media Management</td><td><span class="check">✔</span> Full-service</td><td><span class="cross">✖</span> Often add-on or outsourced</td></tr>
-            <tr><td>In-Person Promotions</td><td><span class="check">✔</span> Included</td><td><span class="cross">✖</span> Digital only</td></tr>
-            <tr><td>Direct Access to Your Team</td><td><span class="check">✔</span> Always</td><td><span class="cross">✖</span> Routed through account managers</td></tr>
-            <tr><td>Personalized Strategy</td><td><span class="check">✔</span> Built for your business</td><td><span class="cross">✖</span> Cookie-cutter templates</td></tr>
-            <tr><td>Proactive Communication</td><td><span class="check">✔</span> We reach out first</td><td><span class="cross">✖</span> You chase updates</td></tr>
-            <tr><td>Flexible In-Person Meetings</td><td><span class="check">✔</span> Any day, any time</td><td><span class="cross">✖</span> Scheduled business hours only</td></tr>
+            <tr><td>24-Hour Availability</td><td><span class="check">Yes</span> — always on</td><td><span class="cross">No</span> — business hours only</td></tr>
+            <tr><td>Social Media Management</td><td><span class="check">Yes</span> — full-service</td><td><span class="cross">Often</span> add-on or outsourced</td></tr>
+            <tr><td>In-Person Promotions</td><td><span class="check">Yes</span> — included</td><td><span class="cross">No</span> — digital only</td></tr>
+            <tr><td>Direct Access to Your Team</td><td><span class="check">Yes</span> — always</td><td><span class="cross">No</span> — routed through account managers</td></tr>
+            <tr><td>Personalized Strategy</td><td><span class="check">Yes</span> — built for your business</td><td><span class="cross">No</span> — same template every time</td></tr>
+            <tr><td>Proactive Communication</td><td><span class="check">Yes</span> — we reach out first</td><td><span class="cross">No</span> — you chase updates</td></tr>
+            <tr><td>Flexible Meeting Times</td><td><span class="check">Yes</span> — any day, any time</td><td><span class="cross">No</span> — scheduled business hours only</td></tr>
           </tbody>
         </table>
       </div>
@@ -1065,74 +1072,120 @@
   </section>
 
   <div class="cta-banner">
-    <h2 class="reveal">Ready to Work With a Team That Actually Shows Up?</h2>
-    <p class="reveal" style="transition-delay:0.15s">No pressure, no obligation — just a real conversation about your business.</p>
-    <div class="reveal" style="transition-delay:0.3s">
-      <a onclick="showPage('home'); setTimeout(()=>document.getElementById('contact').scrollIntoView({behavior:'smooth'}),80)" class="btn btn-white" style="cursor:pointer;">Get in Touch</a>
-      <a onclick="showPage('about')" class="btn btn-outline-white" style="cursor:pointer;">Meet the Team</a>
+    <h2 class="reveal">Ready to Work With a Team That Shows Up?</h2>
+    <p class="reveal" style="transition-delay:.15s">No pressure, no obligation. Just a real conversation about your business.</p>
+    <div class="reveal" style="transition-delay:.3s">
+      <button onclick="showPage('home'); setTimeout(()=>document.getElementById('contact').scrollIntoView({behavior:'smooth'}),60)" class="btn btn-white">Get in Touch</button>
+      <button onclick="showPage('about')" class="btn btn-outline-white">Meet the Team</button>
     </div>
   </div>
 
   <footer><p>&copy; 2026 <strong>BSP Marketing Inc.</strong> All rights reserved.</p></footer>
 </div>
 
-<!-- ══════════════════════════════════════
-     HOW WE WORK
-══════════════════════════════════════ -->
+<!-- ════ HOW WE WORK ════ -->
 <div class="page" id="page-how">
   <div class="page-hero">
     <p class="eyebrow reveal">Our Process</p>
-    <h1 class="reveal" style="transition-delay:0.15s">Simple, Transparent,<br>Built Around You</h1>
-    <p class="reveal" style="transition-delay:0.3s">From the first conversation to ongoing results, here's exactly what it looks like to work with BSP Marketing Inc.</p>
+    <h1 class="reveal" style="transition-delay:.15s">Simple, Transparent,<br>Built Around You</h1>
+    <p class="reveal" style="transition-delay:.3s">From the first conversation to ongoing results, here's exactly what it looks like to work with us.</p>
   </div>
 
   <div class="location-banner">
-    <p>📍 Based in <strong>Los Angeles, California</strong> — serving clients locally and beyond</p>
+    <p>Based in <strong>Los Angeles, California</strong> — serving clients locally and beyond</p>
   </div>
 
-  <section id="process" style="background:var(--white);padding:6rem 2rem;">
+  <section style="background:var(--white);padding:6rem 2rem;">
     <div class="section-inner">
-      <p class="section-label reveal">Step by Step</p>
-      <h2 class="section-title reveal" style="transition-delay:0.1s">How We Get Started</h2>
+      <span class="section-label reveal">Step by Step</span>
+      <h2 class="section-title reveal" style="transition-delay:.1s">How We Get Started</h2>
       <div class="steps">
-        <div class="step reveal"><div class="step-number">01</div><div class="step-content"><span class="step-tag">Discovery</span><h3>We Sit Down and Listen</h3><p>We sit down with you — in person or on a call — and just talk. What do you sell? Who are you trying to reach? What's worked and what hasn't? We listen before we do anything else.</p></div></div>
-        <div class="step reveal" style="transition-delay:0.1s"><div class="step-number">02</div><div class="step-content"><span class="step-tag">Goal Setting</span><h3>We Define What You Want and When</h3><p>Once we understand your business, we figure out what you're trying to accomplish and when. We'll be honest with you about what's realistic and what's not.</p></div></div>
-        <div class="step reveal" style="transition-delay:0.2s"><div class="step-number">03</div><div class="step-content"><span class="step-tag">Strategy & Onboarding</span><h3>We Build Your Custom Plan</h3><p>We build a plan around your specific situation — not a template. Then we collect what we need and get moving.</p></div></div>
-        <div class="step reveal" style="transition-delay:0.3s"><div class="step-number">04</div><div class="step-content"><span class="step-tag">Execution</span><h3>We Execute Across Every Channel</h3><p>We take it from there. Social media, campaigns, content — whatever we agreed on, we handle it so you don't have to.</p></div></div>
-        <div class="step reveal" style="transition-delay:0.4s"><div class="step-number">05</div><div class="step-content"><span class="step-tag">Ongoing</span><h3>We Keep You in the Loop — Every Week</h3><p>Every week you get a straightforward update — what we did, what's next, and how things are tracking. No surprises.</p></div></div>
+        <div class="step reveal">
+          <div class="step-number">01</div>
+          <div class="step-content">
+            <span class="step-tag">Discovery</span>
+            <h3>We Sit Down and Listen</h3>
+            <p>We meet with you — in person or on a call — and just talk. What do you sell, who are you trying to reach, what's worked and what hasn't. We listen before we do anything else.</p>
+          </div>
+        </div>
+        <div class="step reveal" style="transition-delay:.1s">
+          <div class="step-number">02</div>
+          <div class="step-content">
+            <span class="step-tag">Goal Setting</span>
+            <h3>We Define What You Want and When</h3>
+            <p>Once we understand your business, we nail down what you're trying to accomplish and when. We'll be straight with you about what's realistic.</p>
+          </div>
+        </div>
+        <div class="step reveal" style="transition-delay:.2s">
+          <div class="step-number">03</div>
+          <div class="step-content">
+            <span class="step-tag">Strategy</span>
+            <h3>We Build Your Plan</h3>
+            <p>We put together a plan built around your specific situation. Not a template we use for everyone. Then we get what we need from you and get moving.</p>
+          </div>
+        </div>
+        <div class="step reveal" style="transition-delay:.3s">
+          <div class="step-number">04</div>
+          <div class="step-content">
+            <span class="step-tag">Execution</span>
+            <h3>We Handle It</h3>
+            <p>Social media, campaigns, content, in-person. Whatever we agreed on, we take it from there so you don't have to.</p>
+          </div>
+        </div>
+        <div class="step reveal" style="transition-delay:.4s">
+          <div class="step-number">05</div>
+          <div class="step-content">
+            <span class="step-tag">Ongoing</span>
+            <h3>You Hear From Us Every Week</h3>
+            <p>Every week you get a straightforward update — what we did, what's next, how things are tracking. No surprises.</p>
+          </div>
+        </div>
       </div>
     </div>
   </section>
 
-  <section id="communication" style="background:var(--off-white);padding:6rem 2rem;">
+  <section style="background:var(--off-white);padding:6rem 2rem;">
     <div class="section-inner">
-      <p class="section-label reveal">Staying Connected</p>
-      <h2 class="section-title reveal" style="transition-delay:0.1s">How We Communicate</h2>
+      <span class="section-label reveal">Staying in Touch</span>
+      <h2 class="section-title reveal" style="transition-delay:.1s">How We Communicate</h2>
       <div class="comm-wrap">
         <div class="comm-text reveal-left">
-          <p>From day one, you'll always know who to call and what's going on with your account.</p>
-          <p>We talk to you like a real person — not a client number.</p>
+          <p>From day one, you always know who to call and what's going on with your account.</p>
+          <p>We talk to you like a real person, not a client number.</p>
         </div>
         <div class="comm-cards reveal-right">
-          <div class="comm-card"><div class="icon">📊</div><div><h4>Weekly Updates</h4><p>Every week you receive a detailed update on progress, results, and what's planned next — no guesswork required.</p></div></div>
-          <div class="comm-card"><div class="icon">🕐</div><div><h4>24-Hour Availability</h4><p>Have a question, an idea, or an urgent need? We're available around the clock — reach out any time and we'll respond.</p></div></div>
-          <div class="comm-card"><div class="icon">📅</div><div><h4>Flexible In-Person & Online Meetings</h4><p>We're based in Los Angeles and available to meet in person on your schedule. Prefer virtual? We're just as available over Zoom.</p></div></div>
+          <div class="comm-card">
+            <h4>Weekly Updates</h4>
+            <p>Every week you get a rundown on what we did, what's coming, and how things are tracking.</p>
+          </div>
+          <div class="comm-card">
+            <h4>Available 24/7</h4>
+            <p>Got a question or something urgent? Reach out any time. We respond.</p>
+          </div>
+          <div class="comm-card">
+            <h4>In-Person or Online Meetings</h4>
+            <p>We're based in Los Angeles and happy to meet in person — mornings, evenings, weekends. Prefer Zoom? That works too.</p>
+          </div>
         </div>
       </div>
     </div>
   </section>
 
-  <section id="la" style="background:var(--white);">
+  <section style="background:var(--white);">
     <div class="section-inner">
       <div class="la-wrap">
         <div class="la-text reveal-left">
-          <p class="section-label">Where We're Based</p>
-          <h2 class="section-title">Rooted in Los Angeles</h2>
-          <p>BSP Marketing Inc. is proudly based in Los Angeles, California — one of the most competitive and dynamic business markets in the world. We understand the LA landscape, the culture, and what it takes to stand out.</p>
-          <p>Whether your customers are local or nationwide, we know how to reach them. And if you're LA-based, we're always available to meet face to face.</p>
+          <span class="section-label">Where We're Based</span>
+          <h2 class="section-title">Based in Los Angeles</h2>
+          <p>BSP Marketing Inc. is based in Los Angeles, California. We know the LA market and what it takes to stand out here.</p>
+          <p>If you're a local business, we're always available to meet face to face. If you're outside LA, no problem — we work with clients anywhere.</p>
         </div>
         <div class="reveal-right">
-          <div class="la-map"><div class="pin">📍</div><p>Los Angeles, California</p><span>Available for in-person meetings</span></div>
+          <div class="la-map">
+            <div class="pin">📍</div>
+            <p>Los Angeles, California</p>
+            <span>Available for in-person meetings</span>
+          </div>
         </div>
       </div>
     </div>
@@ -1140,80 +1193,75 @@
 
   <div class="cta-banner">
     <h2 class="reveal">Ready to Get Started?</h2>
-    <p class="reveal" style="transition-delay:0.15s">The first step is simple — reach out and we'll set up a time to meet.</p>
-    <div class="reveal" style="transition-delay:0.3s">
-      <a onclick="showPage('home'); setTimeout(()=>document.getElementById('contact').scrollIntoView({behavior:'smooth'}),80)" class="btn btn-white" style="cursor:pointer;">Book a Meeting</a>
-      <a onclick="showPage('why')" class="btn btn-outline-white" style="cursor:pointer;">Why Choose BSP</a>
+    <p class="reveal" style="transition-delay:.15s">Reach out and we'll set up a time to talk.</p>
+    <div class="reveal" style="transition-delay:.3s">
+      <button onclick="showPage('home'); setTimeout(()=>document.getElementById('contact').scrollIntoView({behavior:'smooth'}),60)" class="btn btn-white">Book a Meeting</button>
+      <button onclick="showPage('why')" class="btn btn-outline-white">Why Choose BSP</button>
     </div>
   </div>
 
   <footer><p>&copy; 2026 <strong>BSP Marketing Inc.</strong> All rights reserved.</p></footer>
 </div>
 
-<!-- ══════════════════════════════════════
-     FAQ
-══════════════════════════════════════ -->
+<!-- ════ FAQ ════ -->
 <div class="page" id="page-faq">
   <div class="page-hero">
     <p class="eyebrow reveal">Got Questions?</p>
-    <h1 class="reveal" style="transition-delay:0.15s">Frequently Asked Questions</h1>
-    <p class="reveal" style="transition-delay:0.3s">Everything you want to know before working with us. If something's missing, just reach out.</p>
+    <h1 class="reveal" style="transition-delay:.15s">Frequently Asked Questions</h1>
+    <p class="reveal" style="transition-delay:.3s">Everything you'd want to know before working with us. Something missing? Just reach out.</p>
   </div>
 
   <div class="faq-inner">
-    <div class="faq-category stagger">
+    <div class="faq-category">
       <div class="faq-category-label">Getting Started</div>
-      <div class="faq-item"><button class="faq-question" onclick="toggleFaq(this)">How do we get started? <span class="faq-icon">+</span></button><div class="faq-answer">We start with a meeting — in person or on a call — where we talk about your business, what you're trying to accomplish, and what timeline you're working with. From there we put together a plan and get moving. No complicated onboarding process.</div></div>
+      <div class="faq-item"><button class="faq-question" onclick="toggleFaq(this)">How do we get started? <span class="faq-icon">+</span></button><div class="faq-answer">We start with a meeting — in person or on a call. We talk about your business, what you're trying to do, and what timeline you're working with. From there we put a plan together and get moving. No complicated onboarding.</div></div>
       <div class="faq-item"><button class="faq-question" onclick="toggleFaq(this)">Do I need to sign a long-term contract? <span class="faq-icon">+</span></button><div class="faq-answer">We work month-to-month. You can cancel with 30 days written notice. We'd rather earn your business every month than lock you in.</div></div>
       <div class="faq-item"><button class="faq-question" onclick="toggleFaq(this)">Do you work with businesses outside of Los Angeles? <span class="faq-icon">+</span></button><div class="faq-answer">Yes. We're based in LA but we work with clients anywhere. We're just as comfortable on a Zoom call as we are in person.</div></div>
     </div>
 
-    <div class="faq-category stagger">
+    <div class="faq-category">
       <div class="faq-category-label">Services</div>
-      <div class="faq-item"><button class="faq-question" onclick="toggleFaq(this)">What services do you offer? <span class="faq-icon">+</span></button><div class="faq-answer">We handle social media management, content creation, paid advertising, email marketing, branding, and in-person promotions. If you're not sure what you need, we'll help you figure it out in our first conversation.</div></div>
-      <div class="faq-item"><button class="faq-question" onclick="toggleFaq(this)">Do you manage social media completely, or just give advice? <span class="faq-icon">+</span></button><div class="faq-answer">We handle it completely — strategy, content, posting, and engagement. You don't have to touch it if you don't want to.</div></div>
-      <div class="faq-item"><button class="faq-question" onclick="toggleFaq(this)">Do you do in-person marketing, not just online? <span class="faq-icon">+</span></button><div class="faq-answer">Yes — that's one of the things that sets us apart. We do events, pop-ups, trade shows, and direct sales on top of digital marketing. Most agencies stop at online. We don't.</div></div>
+      <div class="faq-item"><button class="faq-question" onclick="toggleFaq(this)">What services do you offer? <span class="faq-icon">+</span></button><div class="faq-answer">Social media management, content creation, paid advertising, email marketing, branding, and in-person promotions. If you're not sure what you need, we'll figure it out together in our first conversation.</div></div>
+      <div class="faq-item"><button class="faq-question" onclick="toggleFaq(this)">Do you manage social media completely, or just give advice? <span class="faq-icon">+</span></button><div class="faq-answer">We handle it completely. Strategy, content, posting, engagement. You don't have to touch it if you don't want to.</div></div>
+      <div class="faq-item"><button class="faq-question" onclick="toggleFaq(this)">Do you do in-person marketing, not just online? <span class="faq-icon">+</span></button><div class="faq-answer">Yes, and it's one of the things that sets us apart. We do events, pop-ups, trade shows, and direct sales on top of digital. Most agencies stop at online. We don't.</div></div>
     </div>
 
-    <div class="faq-category stagger">
+    <div class="faq-category">
       <div class="faq-category-label">Working Together</div>
-      <div class="faq-item"><button class="faq-question" onclick="toggleFaq(this)">How do you communicate with clients? <span class="faq-icon">+</span></button><div class="faq-answer">You get a weekly update every week covering what we did, what's coming next, and how things are tracking. On top of that, we're available 24/7 if something comes up.</div></div>
-      <div class="faq-item"><button class="faq-question" onclick="toggleFaq(this)">Can we meet in person? <span class="faq-icon">+</span></button><div class="faq-answer">Absolutely. We're based in Los Angeles and happy to meet whenever works for you — mornings, evenings, weekends. We can also do calls or Zoom if that's easier.</div></div>
-      <div class="faq-item"><button class="faq-question" onclick="toggleFaq(this)">What if I'm not happy with the work? <span class="faq-icon">+</span></button><div class="faq-answer">Tell us. We'd rather know right away so we can fix it than have you frustrated and not say anything. We include two rounds of revisions in every monthly package, and we're always open to a conversation if something isn't working.</div></div>
-      <div class="faq-item"><button class="faq-question" onclick="toggleFaq(this)">How quickly can you get started? <span class="faq-icon">+</span></button><div class="faq-answer">Usually within a week of our first meeting. Once we have what we need from you — account access, brand materials, goals — we hit the ground running.</div></div>
+      <div class="faq-item"><button class="faq-question" onclick="toggleFaq(this)">How do you communicate with clients? <span class="faq-icon">+</span></button><div class="faq-answer">You get a weekly update covering what we did, what's coming next, and how things are tracking. On top of that, we're available 24/7 if something comes up.</div></div>
+      <div class="faq-item"><button class="faq-question" onclick="toggleFaq(this)">Can we meet in person? <span class="faq-icon">+</span></button><div class="faq-answer">Absolutely. We're based in Los Angeles and happy to meet whenever works for you. Mornings, evenings, weekends. We can do Zoom too if that's easier.</div></div>
+      <div class="faq-item"><button class="faq-question" onclick="toggleFaq(this)">What if I'm not happy with the work? <span class="faq-icon">+</span></button><div class="faq-answer">Tell us. We'd rather know right away so we can fix it than have you frustrated and quiet about it. We include two rounds of revisions in every monthly package and we're always open to a conversation if something isn't working.</div></div>
+      <div class="faq-item"><button class="faq-question" onclick="toggleFaq(this)">How quickly can you get started? <span class="faq-icon">+</span></button><div class="faq-answer">Usually within a week of our first meeting. Once we have account access, brand materials, and a clear picture of your goals, we get moving.</div></div>
     </div>
   </div>
 
   <div class="cta-banner">
     <h2 class="reveal">Still Have Questions?</h2>
-    <p class="reveal" style="transition-delay:0.15s">Just reach out. We'll get back to you the same day.</p>
-    <div class="reveal" style="transition-delay:0.3s">
-      <a onclick="showPage('home'); setTimeout(()=>document.getElementById('contact').scrollIntoView({behavior:'smooth'}),80)" class="btn btn-white" style="cursor:pointer;">Contact Us</a>
-      <a onclick="showPage('how')" class="btn btn-outline-white" style="cursor:pointer;">How We Work</a>
+    <p class="reveal" style="transition-delay:.15s">Reach out. We'll get back to you the same day.</p>
+    <div class="reveal" style="transition-delay:.3s">
+      <button onclick="showPage('home'); setTimeout(()=>document.getElementById('contact').scrollIntoView({behavior:'smooth'}),60)" class="btn btn-white">Contact Us</button>
+      <button onclick="showPage('how')" class="btn btn-outline-white">How We Work</button>
     </div>
   </div>
 
   <footer><p>&copy; 2026 <strong>BSP Marketing Inc.</strong> All rights reserved.</p></footer>
 </div>
 
-<!-- ══════════════════════════════════════
-     BLOG
-══════════════════════════════════════ -->
+<!-- ════ BLOG ════ -->
 <div class="page" id="page-blog">
   <div id="post-list">
     <div class="page-hero">
-      <p class="eyebrow reveal">Tips & Insights</p>
-      <h1 class="reveal" style="transition-delay:0.15s">The BSP Blog</h1>
-      <p class="reveal" style="transition-delay:0.3s">Marketing tips, business advice, and what's working right now — straight from our team.</p>
+      <p class="eyebrow reveal">Tips and Insights</p>
+      <h1 class="reveal" style="transition-delay:.15s">The BSP Blog</h1>
+      <p class="reveal" style="transition-delay:.3s">Marketing tips, business advice, and what's working right now.</p>
     </div>
-
     <section style="padding:4rem 0;">
       <div class="posts-inner">
         <div class="posts-grid stagger">
-          <div class="post-card"><div class="post-thumb">📱</div><div class="post-body"><div class="post-tag">Social Media</div><div class="post-title">Why Posting Consistently Is More Important Than Posting Perfectly</div><div class="post-excerpt">Most businesses get stuck waiting until everything looks perfect before they post. Here's why that's costing you more than you think.</div><a class="post-link" onclick="openPost('post1')">Read More →</a><div class="post-meta"><span>BSP Marketing</span><span>June 2026</span></div></div></div>
-          <div class="post-card"><div class="post-thumb">🤝</div><div class="post-body"><div class="post-tag">Strategy</div><div class="post-title">In-Person Marketing Isn't Dead — Most Businesses Just Stopped Doing It</div><div class="post-excerpt">Digital marketing gets all the attention, but some of the best results we've seen come from getting in front of people face to face.</div><a class="post-link" onclick="openPost('post2')">Read More →</a><div class="post-meta"><span>BSP Marketing</span><span>June 2026</span></div></div></div>
-          <div class="post-card"><div class="post-thumb">📊</div><div class="post-body"><div class="post-tag">Business</div><div class="post-title">The First Question to Ask Before You Spend Money on Marketing</div><div class="post-excerpt">Before you run a single ad or post a single piece of content, there's one thing you need to have figured out. Most businesses skip it.</div><a class="post-link" onclick="openPost('post3')">Read More →</a><div class="post-meta"><span>BSP Marketing</span><span>May 2026</span></div></div></div>
-          <div class="post-card"><div class="post-thumb">🗣️</div><div class="post-body"><div class="post-tag">Social Media</div><div class="post-title">What to Actually Post on Instagram When You Have No Ideas</div><div class="post-excerpt">Running out of content ideas is one of the most common things we hear from business owners. Here's a simple framework we actually use.</div><a class="post-link" onclick="openPost('post4')">Read More →</a><div class="post-meta"><span>BSP Marketing</span><span>May 2026</span></div></div></div>
+          <div class="post-card"><div class="post-thumb">📱</div><div class="post-body"><div class="post-tag">Social Media</div><div class="post-title">Why Posting Consistently Is More Important Than Posting Perfectly</div><div class="post-excerpt">Most businesses get stuck waiting until everything looks perfect before they post. Here's why that's costing you.</div><a class="post-link" onclick="openPost('post1')">Read More</a><div class="post-meta"><span>BSP Marketing</span><span>June 2026</span></div></div></div>
+          <div class="post-card"><div class="post-thumb">🤝</div><div class="post-body"><div class="post-tag">Strategy</div><div class="post-title">In-Person Marketing Isn't Dead. Most Businesses Just Stopped Doing It.</div><div class="post-excerpt">Digital gets all the attention, but some of the best results we've seen come from getting in front of people face to face.</div><a class="post-link" onclick="openPost('post2')">Read More</a><div class="post-meta"><span>BSP Marketing</span><span>June 2026</span></div></div></div>
+          <div class="post-card"><div class="post-thumb">📊</div><div class="post-body"><div class="post-tag">Business</div><div class="post-title">The First Question to Ask Before You Spend Money on Marketing</div><div class="post-excerpt">Before you run a single ad or post a single piece of content, there's one thing you need to have figured out.</div><a class="post-link" onclick="openPost('post3')">Read More</a><div class="post-meta"><span>BSP Marketing</span><span>May 2026</span></div></div></div>
+          <div class="post-card"><div class="post-thumb">🗣️</div><div class="post-body"><div class="post-tag">Social Media</div><div class="post-title">What to Actually Post on Instagram When You Have No Ideas</div><div class="post-excerpt">Running out of content ideas is one of the most common things we hear. Here's a simple framework we actually use.</div><a class="post-link" onclick="openPost('post4')">Read More</a><div class="post-meta"><span>BSP Marketing</span><span>May 2026</span></div></div></div>
         </div>
       </div>
     </section>
@@ -1230,44 +1278,43 @@
 
   <div class="cta-banner">
     <h2 class="reveal">Want Results Like These for Your Business?</h2>
-    <p class="reveal" style="transition-delay:0.15s">Let's talk about what we can do together.</p>
-    <div class="reveal" style="transition-delay:0.3s">
-      <a onclick="showPage('home'); setTimeout(()=>document.getElementById('contact').scrollIntoView({behavior:'smooth'}),80)" class="btn btn-white" style="cursor:pointer;">Get in Touch</a>
-      <a onclick="showPage('why')" class="btn btn-outline-white" style="cursor:pointer;">Why Choose BSP</a>
+    <p class="reveal" style="transition-delay:.15s">Let's talk about what we can do together.</p>
+    <div class="reveal" style="transition-delay:.3s">
+      <button onclick="showPage('home'); setTimeout(()=>document.getElementById('contact').scrollIntoView({behavior:'smooth'}),60)" class="btn btn-white">Get in Touch</button>
+      <button onclick="showPage('why')" class="btn btn-outline-white">Why Choose BSP</button>
     </div>
   </div>
 
   <footer><p>&copy; 2026 <strong>BSP Marketing Inc.</strong> All rights reserved.</p></footer>
 </div>
 
-<!-- ══════════════════════════════════════
-     REVIEWS
-══════════════════════════════════════ -->
+<!-- ════ REVIEWS ════ -->
 <div class="page" id="page-reviews">
   <div class="page-hero">
     <p class="eyebrow reveal">Client Reviews</p>
-    <h1 class="reveal" style="transition-delay:0.15s">What Our Clients Say</h1>
-    <p class="reveal" style="transition-delay:0.3s">Real feedback from real businesses we've worked with. Scroll down to leave your own.</p>
+    <h1 class="reveal" style="transition-delay:.15s">What Our Clients Say</h1>
+    <p class="reveal" style="transition-delay:.3s">Real feedback from real businesses. Scroll down to leave your own.</p>
   </div>
 
   <section style="padding:3rem 0 0;">
     <div class="reviews-inner">
-      <div id="reviews-grid" class="reviews-grid stagger"></div>
-      <div id="no-reviews" class="no-reviews" style="display:none;"><p>⭐ No reviews yet.</p><p>Be the first to leave one below.</p></div>
+      <div id="reviews-grid" class="reviews-grid"></div>
+      <div id="no-reviews" class="no-reviews"><p>No reviews yet. Be the first to leave one below.</p></div>
     </div>
   </section>
 
   <div class="submit-inner">
-    <p class="section-label reveal">Share Your Experience</p>
-    <h2 class="section-title reveal" style="transition-delay:0.1s">Leave a Review</h2>
-    <p class="section-sub reveal" style="transition-delay:0.2s">Worked with us? We'd love to hear from you.</p>
-    <div class="review-form reveal" style="transition-delay:0.3s">
+    <span class="section-label reveal">Share Your Experience</span>
+    <h2 class="section-title reveal" style="transition-delay:.1s">Leave a Review</h2>
+    <p class="section-sub reveal" style="transition-delay:.2s">Worked with us? We'd love to hear from you.</p>
+    <p class="review-note reveal" style="transition-delay:.25s">Your review will be visible on this page after it's submitted. BSP Marketing will also receive a copy by email.</p>
+    <div class="review-form reveal" style="transition-delay:.3s">
       <div id="form-wrap">
-        <div class="review-form .form-row" style="display:grid;grid-template-columns:1fr 1fr;gap:1.25rem;margin-bottom:1.25rem;">
-          <div class="form-group"><label>Your Name *</label><input type="text" id="r-name" placeholder="John Smith" /></div>
-          <div class="form-group"><label>Business Name</label><input type="text" id="r-company" placeholder="Your Company" /></div>
+        <div class="r-row">
+          <div class="form-group"><label>Your Name *</label><input type="text" id="r-name" name="name" placeholder="John Smith" /></div>
+          <div class="form-group"><label>Business Name</label><input type="text" id="r-company" name="company" placeholder="Your Company" /></div>
         </div>
-        <div class="form-group" style="margin-bottom:1.25rem;">
+        <div class="form-group">
           <label>Rating *</label>
           <div class="star-select" id="star-select">
             <button type="button" data-val="1" onclick="setStars(1)">★</button>
@@ -1277,52 +1324,49 @@
             <button type="button" data-val="5" onclick="setStars(5)">★</button>
           </div>
         </div>
-        <div class="form-group" style="margin-bottom:1.5rem;"><label>Your Review *</label><textarea id="r-text" placeholder="Tell others about your experience working with BSP Marketing..." style="width:100%;padding:0.75rem 1rem;border:1px solid var(--light-gray);border-radius:4px;font-size:0.9rem;font-family:inherit;min-height:120px;resize:vertical;"></textarea></div>
+        <div class="form-group">
+          <label>Your Review *</label>
+          <textarea id="r-text" name="review" placeholder="Tell others about your experience working with BSP Marketing..."></textarea>
+        </div>
         <button class="submit-btn" onclick="submitReview()">Submit Review</button>
       </div>
       <div class="success-msg" id="success-msg">
         <div class="checkmark">✅</div>
         <h3>Thanks for your review!</h3>
-        <p>Your feedback has been submitted and will appear on this page.</p>
+        <p>Your feedback has been submitted.</p>
       </div>
     </div>
   </div>
 
   <div class="cta-banner">
     <h2 class="reveal">Ready to Get Started?</h2>
-    <p class="reveal" style="transition-delay:0.15s">Let's talk about your business.</p>
-    <div class="reveal" style="transition-delay:0.3s">
-      <a onclick="showPage('home'); setTimeout(()=>document.getElementById('contact').scrollIntoView({behavior:'smooth'}),80)" class="btn btn-white" style="cursor:pointer;">Contact Us</a>
-      <a onclick="showPage('how')" class="btn btn-outline-white" style="cursor:pointer;">How We Work</a>
+    <p class="reveal" style="transition-delay:.15s">Let's talk about your business.</p>
+    <div class="reveal" style="transition-delay:.3s">
+      <button onclick="showPage('home'); setTimeout(()=>document.getElementById('contact').scrollIntoView({behavior:'smooth'}),60)" class="btn btn-white">Contact Us</button>
+      <button onclick="showPage('how')" class="btn btn-outline-white">How We Work</button>
     </div>
   </div>
 
   <footer><p>&copy; 2026 <strong>BSP Marketing Inc.</strong> All rights reserved.</p></footer>
 </div>
 
-<!-- ══════════════════════════════════════
-     CONTRACTS
-══════════════════════════════════════ -->
+<!-- ════ CONTRACTS ════ -->
 <div class="page" id="page-contracts">
   <div class="page-hero">
     <p class="eyebrow reveal">Legal Documents</p>
-    <h1 class="reveal" style="transition-delay:0.15s">Contracts & Documents</h1>
-    <p class="reveal" style="transition-delay:0.3s">All BSP Marketing agreements in one place. Click any document to expand, review, and print.</p>
+    <h1 class="reveal" style="transition-delay:.15s">Contracts &amp; Documents</h1>
+    <p class="reveal" style="transition-delay:.3s">All BSP Marketing agreements in one place. Click any document to expand, review, and print.</p>
   </div>
 
   <div class="docs-inner">
 
-    <!-- 1. CLIENT SERVICE AGREEMENT -->
     <div class="doc-card">
       <div class="doc-header" onclick="toggleDoc(this)">
         <div class="doc-header-left"><span class="doc-icon">📄</span><div><div class="doc-title">Client Service Agreement</div><div class="doc-subtitle">Main contract covering services, payment, IP, and termination</div></div></div>
         <span class="doc-toggle">▼</span>
       </div>
       <div class="doc-body">
-        <div class="doc-actions">
-          <button class="btn-sm btn-dark-sm" onclick="printDoc(this)">🖨 Print</button>
-          <button class="btn-sm btn-outline-sm" onclick="copyDoc(this)">📋 Copy Text</button>
-        </div>
+        <div class="doc-actions"><button class="btn-sm btn-dark-sm" onclick="printDoc(this)">Print</button><button class="btn-sm btn-outline-sm" onclick="copyDoc(this)">Copy Text</button></div>
         <div class="doc-content">
           <h2>BSP MARKETING INC.<br>CLIENT SERVICE AGREEMENT</h2>
           <p class="doc-tagline">Confidential — For Client Use Only</p>
@@ -1331,7 +1375,7 @@
           <p>BSP Marketing Inc. agrees to provide marketing services, including but not limited to:</p>
           <ul><li>Social Media Management</li><li>Content Creation</li><li>Paid Advertising Management</li><li>Branding &amp; Strategy</li><li>Email Marketing</li><li>Website Optimization</li><li>Other services agreed upon in writing</li></ul>
           <h3>2. Term</h3>
-          <p>This Agreement begins on <span class="field-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> and shall continue on a month-to-month basis unless terminated by either party with thirty (30) days written notice.</p>
+          <p>This Agreement begins on <span class="field-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> and continues month-to-month unless terminated by either party with thirty (30) days written notice.</p>
           <h3>3. Payment</h3>
           <ul><li>Client agrees to pay BSP Marketing Inc. $<span class="field-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> per month.</li><li>Invoices are due within seven (7) days of receipt.</li><li>Accounts more than fifteen (15) days overdue may have services paused until payment is received.</li><li>Late balances may accrue interest at 1.5% per month or the maximum rate permitted by law.</li></ul>
           <h3>4. Client Responsibilities</h3>
@@ -1360,14 +1404,13 @@
       </div>
     </div>
 
-    <!-- 2. SOW -->
     <div class="doc-card">
       <div class="doc-header" onclick="toggleDoc(this)">
         <div class="doc-header-left"><span class="doc-icon">📋</span><div><div class="doc-title">Statement of Work (SOW)</div><div class="doc-subtitle">Defines specific services, deliverables, and monthly fee</div></div></div>
         <span class="doc-toggle">▼</span>
       </div>
       <div class="doc-body">
-        <div class="doc-actions"><button class="btn-sm btn-dark-sm" onclick="printDoc(this)">🖨 Print</button><button class="btn-sm btn-outline-sm" onclick="copyDoc(this)">📋 Copy Text</button></div>
+        <div class="doc-actions"><button class="btn-sm btn-dark-sm" onclick="printDoc(this)">Print</button><button class="btn-sm btn-outline-sm" onclick="copyDoc(this)">Copy Text</button></div>
         <div class="doc-content">
           <h2>BSP MARKETING INC.<br>STATEMENT OF WORK (SOW)</h2>
           <p class="doc-tagline">Confidential — For Client Use Only</p>
@@ -1383,7 +1426,7 @@
           <div class="checkbox-row"><input type="checkbox"> Branding</div>
           <div class="checkbox-row"><input type="checkbox"> Email Marketing</div>
           <div class="checkbox-row"><input type="checkbox"> Website Optimization</div>
-          <div class="checkbox-row"><input type="checkbox"> Other: <div class="field-block" style="flex:1;margin:0 0 0 0.5rem;display:inline-block;min-width:120px;"></div></div>
+          <div class="checkbox-row"><input type="checkbox"> Other: <div class="field-block" style="display:inline-block;min-width:120px;margin-left:0.5rem;"></div></div>
           <h3>Deliverables</h3>
           <div class="field-block" style="min-height:80px"></div>
           <h3>Advertising Budget (if applicable)</h3>
@@ -1396,14 +1439,13 @@
       </div>
     </div>
 
-    <!-- 3. NDA -->
     <div class="doc-card">
       <div class="doc-header" onclick="toggleDoc(this)">
         <div class="doc-header-left"><span class="doc-icon">🔒</span><div><div class="doc-title">Non-Disclosure Agreement (NDA)</div><div class="doc-subtitle">Protects confidential business information shared between parties</div></div></div>
         <span class="doc-toggle">▼</span>
       </div>
       <div class="doc-body">
-        <div class="doc-actions"><button class="btn-sm btn-dark-sm" onclick="printDoc(this)">🖨 Print</button><button class="btn-sm btn-outline-sm" onclick="copyDoc(this)">📋 Copy Text</button></div>
+        <div class="doc-actions"><button class="btn-sm btn-dark-sm" onclick="printDoc(this)">Print</button><button class="btn-sm btn-outline-sm" onclick="copyDoc(this)">Copy Text</button></div>
         <div class="doc-content">
           <h2>BSP MARKETING INC.<br>NON-DISCLOSURE AGREEMENT (NDA)</h2>
           <p class="doc-tagline">Confidential — For Client Use Only</p>
@@ -1411,7 +1453,7 @@
           <p>Both parties agree that any confidential information shared during the business relationship shall remain private and shall not be disclosed to third parties.</p>
           <h3>Confidential Information Includes:</h3>
           <ul><li>Business plans</li><li>Marketing strategies</li><li>Financial information</li><li>Customer information</li><li>Login credentials</li><li>Trade secrets</li><li>Proprietary systems and processes</li></ul>
-          <p>This Agreement remains effective during the business relationship and for three (3) years after termination.</p>
+          <p>This Agreement remains in effect during the business relationship and for three (3) years after termination.</p>
           <div class="sig-grid">
             <div class="sig-block"><p>BSP Marketing Inc.</p><div class="sig-line"></div><div class="sig-label">Signature</div><div class="sig-line" style="margin-top:1rem"></div><div class="sig-label">Date</div></div>
             <div class="sig-block"><p>Client</p><div class="sig-line"></div><div class="sig-label">Signature</div><div class="sig-line" style="margin-top:1rem"></div><div class="sig-label">Date</div></div>
@@ -1420,14 +1462,13 @@
       </div>
     </div>
 
-    <!-- 4. CONTRACTOR AGREEMENT -->
     <div class="doc-card">
       <div class="doc-header" onclick="toggleDoc(this)">
         <div class="doc-header-left"><span class="doc-icon">🧾</span><div><div class="doc-title">Independent Contractor Agreement</div><div class="doc-subtitle">For freelancers and contractors working with BSP Marketing</div></div></div>
         <span class="doc-toggle">▼</span>
       </div>
       <div class="doc-body">
-        <div class="doc-actions"><button class="btn-sm btn-dark-sm" onclick="printDoc(this)">🖨 Print</button><button class="btn-sm btn-outline-sm" onclick="copyDoc(this)">📋 Copy Text</button></div>
+        <div class="doc-actions"><button class="btn-sm btn-dark-sm" onclick="printDoc(this)">Print</button><button class="btn-sm btn-outline-sm" onclick="copyDoc(this)">Copy Text</button></div>
         <div class="doc-content">
           <h2>BSP MARKETING INC.<br>INDEPENDENT CONTRACTOR AGREEMENT</h2>
           <p class="doc-tagline">Confidential — Internal Use Only</p>
@@ -1436,9 +1477,9 @@
           <h3>Services Provided</h3>
           <div class="field-block" style="min-height:60px"></div>
           <h3>Compensation</h3>
-          <div class="checkbox-row"><input type="checkbox"> Hourly Rate: $<div class="field-block" style="flex:1;margin-left:0.5rem;display:inline-block;min-width:100px;"></div></div>
-          <div class="checkbox-row"><input type="checkbox"> Per Project: $<div class="field-block" style="flex:1;margin-left:0.5rem;display:inline-block;min-width:100px;"></div></div>
-          <div class="checkbox-row"><input type="checkbox"> Monthly Retainer: $<div class="field-block" style="flex:1;margin-left:0.5rem;display:inline-block;min-width:100px;"></div></div>
+          <div class="checkbox-row"><input type="checkbox"> Hourly Rate: $<div class="field-block" style="display:inline-block;min-width:100px;margin-left:0.5rem;"></div></div>
+          <div class="checkbox-row"><input type="checkbox"> Per Project: $<div class="field-block" style="display:inline-block;min-width:100px;margin-left:0.5rem;"></div></div>
+          <div class="checkbox-row"><input type="checkbox"> Monthly Retainer: $<div class="field-block" style="display:inline-block;min-width:100px;margin-left:0.5rem;"></div></div>
           <h3>Terms</h3>
           <ul><li>Contractor acknowledges they are an independent contractor and not an employee of BSP Marketing Inc.</li><li>Contractor is responsible for all taxes, insurance, and business expenses.</li><li>All work created under this Agreement becomes the property of BSP Marketing Inc. upon payment.</li><li>Contractor agrees to maintain confidentiality regarding all client and company information.</li><li>Contractor shall not directly solicit BSP Marketing Inc. clients for twelve (12) months following termination.</li><li>Either party may terminate this Agreement with fourteen (14) days written notice.</li></ul>
           <div class="sig-grid">
@@ -1449,14 +1490,13 @@
       </div>
     </div>
 
-    <!-- 5. ADVERTISING AUTHORIZATION -->
     <div class="doc-card">
       <div class="doc-header" onclick="toggleDoc(this)">
         <div class="doc-header-left"><span class="doc-icon">📣</span><div><div class="doc-title">Advertising Authorization Form</div><div class="doc-subtitle">Authorizes BSP to manage ad campaigns and budgets</div></div></div>
         <span class="doc-toggle">▼</span>
       </div>
       <div class="doc-body">
-        <div class="doc-actions"><button class="btn-sm btn-dark-sm" onclick="printDoc(this)">🖨 Print</button><button class="btn-sm btn-outline-sm" onclick="copyDoc(this)">📋 Copy Text</button></div>
+        <div class="doc-actions"><button class="btn-sm btn-dark-sm" onclick="printDoc(this)">Print</button><button class="btn-sm btn-outline-sm" onclick="copyDoc(this)">Copy Text</button></div>
         <div class="doc-content">
           <h2>BSP MARKETING INC.<br>ADVERTISING AUTHORIZATION FORM</h2>
           <p class="doc-tagline">Confidential — For Client Use Only</p>
@@ -1469,7 +1509,7 @@
           <div class="checkbox-row"><input type="checkbox"> Google Ads</div>
           <div class="checkbox-row"><input type="checkbox"> TikTok Ads</div>
           <div class="checkbox-row"><input type="checkbox"> YouTube Ads</div>
-          <div class="checkbox-row"><input type="checkbox"> Other: <div class="field-block" style="flex:1;margin-left:0.5rem;display:inline-block;min-width:100px;"></div></div>
+          <div class="checkbox-row"><input type="checkbox"> Other: <div class="field-block" style="display:inline-block;min-width:100px;margin-left:0.5rem;"></div></div>
           <h3>Budget</h3>
           <p>Monthly Ad Budget: $<div class="field-block"></div></p>
           <p>Daily Ad Budget: $<div class="field-block"></div></p>
@@ -1483,14 +1523,13 @@
       </div>
     </div>
 
-    <!-- 6. ONBOARDING FORM -->
     <div class="doc-card">
       <div class="doc-header" onclick="toggleDoc(this)">
         <div class="doc-header-left"><span class="doc-icon">🚀</span><div><div class="doc-title">Client Onboarding Form</div><div class="doc-subtitle">Collects everything needed to get started</div></div></div>
         <span class="doc-toggle">▼</span>
       </div>
       <div class="doc-body">
-        <div class="doc-actions"><button class="btn-sm btn-dark-sm" onclick="printDoc(this)">🖨 Print</button><button class="btn-sm btn-outline-sm" onclick="copyDoc(this)">📋 Copy Text</button></div>
+        <div class="doc-actions"><button class="btn-sm btn-dark-sm" onclick="printDoc(this)">Print</button><button class="btn-sm btn-outline-sm" onclick="copyDoc(this)">Copy Text</button></div>
         <div class="doc-content">
           <h2>BSP MARKETING INC.<br>CLIENT ONBOARDING FORM</h2>
           <p class="doc-tagline">Confidential — For Client Use Only</p>
@@ -1502,7 +1541,7 @@
           <p>Phone Number: <div class="field-block"></div></p>
           <p>Industry: <div class="field-block"></div></p>
           <p>Years in Business: <div class="field-block"></div></p>
-          <h3>Goals & Strategy</h3>
+          <h3>Goals &amp; Strategy</h3>
           <p>What are your top three business goals?</p>
           <div class="field-block" style="min-height:80px"></div>
           <p style="margin-top:1rem">Describe your ideal customer:</p>
@@ -1535,110 +1574,118 @@
       </div>
     </div>
 
-  </div><!-- end docs-inner -->
+  </div>
 
-  <div class="cta-banner" style="margin-top:2rem;">
+  <div class="cta-banner" style="margin-top:1rem;">
     <h2 class="reveal">Questions About Our Contracts?</h2>
-    <p class="reveal" style="transition-delay:0.15s">Reach out and we'll walk you through everything before you sign.</p>
-    <div class="reveal" style="transition-delay:0.3s">
-      <a onclick="showPage('home'); setTimeout(()=>document.getElementById('contact').scrollIntoView({behavior:'smooth'}),80)" class="btn btn-white" style="cursor:pointer;">Contact Us</a>
+    <p class="reveal" style="transition-delay:.15s">Reach out and we'll walk you through everything before you sign.</p>
+    <div class="reveal" style="transition-delay:.3s">
+      <button onclick="showPage('home'); setTimeout(()=>document.getElementById('contact').scrollIntoView({behavior:'smooth'}),60)" class="btn btn-white">Contact Us</button>
     </div>
   </div>
 
   <footer><p>&copy; 2026 <strong>BSP Marketing Inc.</strong> All rights reserved.</p></footer>
 </div>
 
-<!-- ══════════════════════════════════════
-     JAVASCRIPT
-══════════════════════════════════════ -->
 <script>
-  // ── PAGE SWITCHING ──
+  // ── PAGE SWITCHING (no animation shake) ──
   function showPage(id) {
     document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-    document.getElementById('page-' + id).classList.add('active');
+    const page = document.getElementById('page-' + id);
+    page.classList.add('active');
     window.scrollTo({ top: 0, behavior: 'instant' });
     location.hash = id;
 
-    // Update active nav link
     document.querySelectorAll('.nav-links a[data-page]').forEach(a => {
       a.classList.toggle('active', a.dataset.page === id);
     });
-
-    // Close mobile menu
     document.getElementById('nav-links').classList.remove('open');
 
-    // Re-trigger animations on newly visible page
-    setTimeout(triggerAnimations, 50);
+    // Show all animated elements immediately — no flash/shake
+    page.querySelectorAll('.reveal, .reveal-left, .reveal-right, .stagger').forEach(el => {
+      el.classList.add('visible');
+    });
 
-    // Load reviews when navigating to reviews page
     if (id === 'reviews') renderReviews();
   }
 
-  // Handle hash on load
+  // ── MOBILE MENU ──
+  function toggleMenu() {
+    document.getElementById('nav-links').classList.toggle('open');
+  }
+
+  // ── SCROLL ANIMATIONS (home page on load only) ──
+  const scrollObserver = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.12 });
+
+  function initScrollAnimations() {
+    document.querySelectorAll('#page-home .reveal, #page-home .reveal-left, #page-home .reveal-right, #page-home .stagger').forEach(el => {
+      scrollObserver.observe(el);
+    });
+  }
+
+  // ── INIT ──
   window.addEventListener('load', () => {
     const hash = location.hash.replace('#', '');
     const valid = ['home','about','why','how','faq','blog','reviews','contracts'];
     if (hash && valid.includes(hash)) {
       showPage(hash);
     } else {
-      triggerAnimations();
+      initScrollAnimations();
     }
     renderReviews();
   });
 
-  // ── HAMBURGER ──
-  function toggleMenu() {
-    document.getElementById('nav-links').classList.toggle('open');
-  }
+  // ── CONTACT FORM (Formspree) ──
+  // SETUP: Go to formspree.io, create a free account, add bspmarketinginc@gmail.com,
+  // then replace YOUR_FORM_ID below with your actual Formspree form ID.
+  const FORMSPREE_CONTACT = 'https://formspree.io/f/YOUR_FORM_ID';
 
-  // ── SCROLL ANIMATIONS ──
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) entry.target.classList.add('visible');
-    });
-  }, { threshold: 0.12 });
-
-  function triggerAnimations() {
-    document.querySelectorAll('.active .reveal, .active .reveal-left, .active .reveal-right, .active .stagger').forEach(el => {
-      el.classList.remove('visible');
-      observer.observe(el);
-    });
-    // Immediately trigger elements already in view
-    setTimeout(() => {
-      document.querySelectorAll('.active .reveal, .active .reveal-left, .active .reveal-right, .active .stagger').forEach(el => {
-        const rect = el.getBoundingClientRect();
-        if (rect.top < window.innerHeight * 0.9) el.classList.add('visible');
-      });
-    }, 100);
-  }
-
-  // ── CONTACT FORM ──
-  function handleSubmit(e) {
+  document.getElementById('contact-form').addEventListener('submit', async function(e) {
     e.preventDefault();
-    const btn = e.target.querySelector('button');
-    btn.textContent = 'Message Sent!';
+    const btn = document.getElementById('contact-submit');
+    const status = document.getElementById('form-status');
+    btn.textContent = 'Sending...';
     btn.disabled = true;
-    setTimeout(() => {
+    status.className = '';
+    status.style.display = 'none';
+
+    try {
+      const res = await fetch(FORMSPREE_CONTACT, {
+        method: 'POST',
+        body: new FormData(this),
+        headers: { 'Accept': 'application/json' }
+      });
+      if (res.ok) {
+        status.textContent = 'Message sent! We\'ll get back to you within one business day.';
+        status.className = 'success';
+        status.style.display = 'block';
+        this.reset();
+        btn.textContent = 'Send Message';
+        btn.disabled = false;
+      } else {
+        throw new Error();
+      }
+    } catch {
+      status.textContent = 'Something went wrong. Please email us directly at bspmarketinginc@gmail.com';
+      status.className = 'error';
+      status.style.display = 'block';
       btn.textContent = 'Send Message';
       btn.disabled = false;
-      e.target.reset();
-    }, 3000);
-  }
+    }
+  });
 
   // ── FAQ ──
-  function toggleFaq(btn) {
-    btn.parentElement.classList.toggle('open');
-  }
+  function toggleFaq(btn) { btn.parentElement.classList.toggle('open'); }
 
   // ── CONTRACTS ──
-  function toggleDoc(header) {
-    header.parentElement.classList.toggle('open');
-  }
+  function toggleDoc(header) { header.parentElement.classList.toggle('open'); }
 
   function printDoc(btn) {
     const content = btn.closest('.doc-body').querySelector('.doc-content').innerHTML;
     const win = window.open('', '_blank');
-    win.document.write('<!DOCTYPE html><html><head><title>BSP Marketing Inc. — Document</title><style>body{font-family:Segoe UI,sans-serif;color:#1a1a18;max-width:720px;margin:2rem auto;font-size:10pt;line-height:1.7;}h2{text-align:center;font-size:13pt;margin-bottom:.25rem;}.doc-tagline{text-align:center;font-size:8pt;color:#999;margin-bottom:1.5rem;}h3{font-size:10pt;margin:1.2rem 0 .3rem;border-bottom:1px solid #e8e8e5;padding-bottom:.2rem;}ul{padding-left:1.5rem;}li{margin-bottom:.2rem;}.field-line{display:inline-block;border-bottom:1px solid #999;min-width:200px;}.field-block{border:1px solid #ccc;min-height:1.8rem;margin:.2rem 0;padding:.3rem;display:block;}.checkbox-row{display:flex;align-items:center;gap:.4rem;margin:.15rem 0;}.sig-grid{display:grid;grid-template-columns:1fr 1fr;gap:2rem;margin-top:2rem;padding-top:1rem;border-top:1px solid #e8e8e5;}.sig-line{border-bottom:1px solid #999;height:1.8rem;margin-bottom:.3rem;}.sig-label{font-size:8pt;color:#999;}.sig-block p{font-weight:700;margin-bottom:.5rem;}</style></head><body>' + content + '</body></html>');
+    win.document.write('<!DOCTYPE html><html><head><title>BSP Marketing Inc.</title><style>body{font-family:Segoe UI,sans-serif;color:#111;max-width:720px;margin:2rem auto;font-size:10pt;line-height:1.7;}h2{text-align:center;font-size:13pt;margin-bottom:.2rem;}.doc-tagline{text-align:center;font-size:8pt;color:#999;margin-bottom:1.4rem;}h3{font-size:10pt;margin:1.1rem 0 .3rem;border-bottom:1px solid #ddd;padding-bottom:.2rem;}ul{padding-left:1.4rem;}li{margin-bottom:.2rem;}.field-line{display:inline-block;border-bottom:1px solid #999;min-width:180px;}.field-block{border:1px solid #ccc;min-height:1.8rem;margin:.2rem 0;padding:.3rem;display:block;}.checkbox-row{display:flex;align-items:center;gap:.4rem;margin:.15rem 0;}.sig-grid{display:grid;grid-template-columns:1fr 1fr;gap:2rem;margin-top:2rem;padding-top:1rem;border-top:1px solid #ddd;}.sig-line{border-bottom:1px solid #999;height:1.8rem;margin-bottom:.25rem;}.sig-label{font-size:8pt;color:#999;}.sig-block p{font-weight:700;margin-bottom:.5rem;}</style></head><body>' + content + '</body></html>');
     win.document.close();
     win.print();
   }
@@ -1646,22 +1693,23 @@
   function copyDoc(btn) {
     const content = btn.closest('.doc-body').querySelector('.doc-content');
     navigator.clipboard.writeText(content.innerText).then(() => {
-      btn.textContent = '✔ Copied!';
-      setTimeout(() => btn.textContent = '📋 Copy Text', 2000);
+      const orig = btn.textContent;
+      btn.textContent = 'Copied!';
+      setTimeout(() => btn.textContent = orig, 2000);
     });
   }
 
   // ── BLOG ──
   const posts = {
-    post1: { tag:'Social Media', title:'Why Posting Consistently Is More Important Than Posting Perfectly', date:'June 2026', content:`<p>We talk to a lot of business owners who haven't posted in weeks — or months — because they're waiting until they have better photos, a cleaner logo, a more polished caption. Meanwhile their competitors are posting every day and growing their audience.</p><p>Here's the truth: the algorithm rewards consistency. It doesn't care if your photo was taken on an iPhone or a $5,000 camera. It cares whether you show up.</p><h2>Why consistency beats perfection</h2><p>When you post regularly, a few things happen:</p><ul><li>The platform shows your content to more people</li><li>Your audience gets used to seeing you and starts to trust you</li><li>You get better at creating content just by doing it more</li></ul><p>One polished post a month doesn't build an audience. Ten real, honest posts do.</p><h2>What "consistent" actually means</h2><p>You don't need to post three times a day. For most small businesses, three to five times a week is plenty. The key is picking a schedule you can actually stick to, not one that looks impressive on paper.</p><p>Start smaller than you think you need to. It's better to post three times a week every week than to post every day for two weeks and then burn out and disappear.</p><h2>The bottom line</h2><p>Done is better than perfect. Post the thing. You can always improve as you go — but you can't build an audience you're not showing up for.</p>` },
-    post2: { tag:'Strategy', title:"In-Person Marketing Isn't Dead — Most Businesses Just Stopped Doing It", date:'June 2026', content:`<p>Everyone's chasing followers, clicks, and impressions. And that stuff matters. But somewhere along the way a lot of businesses stopped showing up in person — and that's left a real opening for the ones who still do.</p><p>Think about the last time a brand showed up somewhere you were — a local event, a pop-up, a demo at a store. If it was done well, you probably still remember it. That's the power of in-person marketing. It sticks.</p><h2>Why in-person still works</h2><ul><li>People trust what they can see and touch</li><li>A face-to-face interaction is worth more than a hundred online impressions</li><li>You're reaching people who might never see your ads</li><li>It creates word of mouth that spreads on its own</li></ul><h2>What in-person marketing looks like</h2><p>It doesn't have to be a big production. It can be a booth at a local market, a product demo at a partner's store, a pop-up in a busy area, or showing up to an industry event and actually talking to people. The bar is lower than most businesses think.</p><h2>Combine both</h2><p>The businesses that do best are usually doing both — they're active online and they show up in person. Each one reinforces the other. Someone sees you at an event, then finds you on Instagram. Or they discover you online and then meet you at a pop-up. That combination builds real trust fast.</p>` },
-    post3: { tag:'Business', title:'The First Question to Ask Before You Spend Money on Marketing', date:'May 2026', content:`<p>Before you run ads, hire someone to manage your social media, or spend anything on marketing at all — there's one question you need to be able to answer clearly:</p><p><strong>Who exactly are you trying to reach?</strong></p><p>It sounds simple. Most business owners think they know the answer. But when we ask, the most common response is something like "everyone" or "anyone who needs what we sell." That's not an answer — and marketing to everyone usually means reaching no one.</p><h2>Why this matters so much</h2><p>Every marketing decision — what platform to use, what to say, what images to show, what time to post — should be based on who you're trying to reach. If you don't know that, you're guessing. And guessing with a marketing budget gets expensive fast.</p><h2>How to actually answer it</h2><p>Think about your best current customers. Not all of them — your best ones. Ask yourself:</p><ul><li>How old are they?</li><li>Where do they spend time online?</li><li>What problem were they trying to solve when they found you?</li><li>What made them choose you over someone else?</li></ul><p>The answers tell you exactly where to show up and what to say.</p><h2>Then go from there</h2><p>Once you know who you're talking to, everything gets easier. The platform picks itself. The message writes itself. And you stop wasting money on people who were never going to buy from you anyway.</p>` },
-    post4: { tag:'Social Media', title:'What to Actually Post on Instagram When You Have No Ideas', date:'May 2026', content:`<p>Content block is real. Every business owner hits it — you know you're supposed to be posting, but you sit down to create something and your mind goes completely blank. Here's a simple framework we use when that happens.</p><h2>The five categories</h2><p>If you can't think of what to post, pick from one of these five buckets:</p><ul><li><strong>Behind the scenes</strong> — show people what it actually looks like to run your business day to day.</li><li><strong>A tip or piece of advice</strong> — share something genuinely useful that your audience would want to know.</li><li><strong>A client win or result</strong> — even a simple "we helped a client do X" post builds trust fast.</li><li><strong>Your opinion on something</strong> — take a position on something in your industry. Posts with a point of view get more engagement.</li><li><strong>Answer a question you get asked a lot</strong> — if a customer asked you something this week, chances are a hundred other people want to know the same thing.</li></ul><h2>Keep a running list</h2><p>Whenever an idea comes to you — in the car, during a client conversation, while you're working — write it down. The ideas come at random times. If you don't catch them, they're gone.</p><h2>You don't need to be creative</h2><p>The best social media content from small businesses is usually just honest and specific. You don't need a graphic designer or a professional photographer. You need to show up and say something real.</p>` }
+    post1: { tag:'Social Media', title:'Why Posting Consistently Is More Important Than Posting Perfectly', date:'June 2026', content:`<p>We talk to a lot of business owners who haven't posted in weeks because they're waiting until they have better photos, a cleaner logo, a more polished caption. Meanwhile their competitors are posting every day and growing their audience.</p><p>The algorithm rewards consistency. It doesn't care if your photo was taken on an iPhone or a $5,000 camera. It cares whether you show up.</p><h2>Why consistency beats perfection</h2><p>When you post regularly, a few things happen:</p><ul><li>The platform shows your content to more people</li><li>Your audience gets used to seeing you and starts to trust you</li><li>You get better at creating content just by doing it more</li></ul><p>One polished post a month doesn't build an audience. Ten real, honest posts do.</p><h2>What "consistent" actually means</h2><p>You don't need to post three times a day. For most small businesses, three to five times a week is plenty. Pick a schedule you can actually stick to, not one that looks impressive on paper.</p><p>Start smaller than you think you need to. Three times a week every week beats posting every day for two weeks and then burning out.</p><h2>The bottom line</h2><p>Done is better than perfect. Post the thing. You can always improve as you go — but you can't build an audience you're not showing up for.</p>` },
+    post2: { tag:'Strategy', title:"In-Person Marketing Isn't Dead. Most Businesses Just Stopped Doing It.", date:'June 2026', content:`<p>Everyone's chasing followers, clicks, and impressions. And that stuff matters. But a lot of businesses stopped showing up in person, and that's left a real opening for the ones who still do.</p><p>Think about the last time a brand showed up somewhere you were — a local event, a pop-up, a demo at a store. If it was done well, you probably still remember it. That's the power of in-person marketing. It sticks.</p><h2>Why in-person still works</h2><ul><li>People trust what they can see and touch</li><li>A face-to-face interaction is worth more than a hundred online impressions</li><li>You're reaching people who might never see your ads</li><li>It creates word of mouth that spreads on its own</li></ul><h2>What it actually looks like</h2><p>It doesn't have to be a big production. A booth at a local market, a product demo at a partner's store, a pop-up in a busy area, showing up to an industry event and talking to people. The bar is lower than most businesses think.</p><h2>Combine both</h2><p>The businesses that do best are usually doing both. Active online and showing up in person. Each one reinforces the other. Someone sees you at an event, then finds you on Instagram. Or they discover you online and meet you at a pop-up. That combination builds trust fast.</p>` },
+    post3: { tag:'Business', title:'The First Question to Ask Before You Spend Money on Marketing', date:'May 2026', content:`<p>Before you run ads, hire someone to manage your social media, or spend anything on marketing — there's one question you need to answer clearly:</p><p><strong>Who exactly are you trying to reach?</strong></p><p>It sounds simple. Most business owners think they know. But when we ask, the most common response is something like "everyone" or "anyone who needs what we sell." That's not an answer. Marketing to everyone usually means reaching no one.</p><h2>Why this matters</h2><p>Every marketing decision — what platform to use, what to say, what images to show, what time to post — should be based on who you're trying to reach. If you don't know that, you're guessing. And guessing with a marketing budget gets expensive fast.</p><h2>How to figure it out</h2><p>Think about your best current customers. Not all of them — your best ones. Ask:</p><ul><li>How old are they?</li><li>Where do they spend time online?</li><li>What problem were they trying to solve when they found you?</li><li>What made them choose you over someone else?</li></ul><p>The answers tell you exactly where to show up and what to say.</p><h2>Then go from there</h2><p>Once you know who you're talking to, everything gets easier. The platform picks itself. The message writes itself. And you stop wasting money on people who were never going to buy from you anyway.</p>` },
+    post4: { tag:'Social Media', title:'What to Actually Post on Instagram When You Have No Ideas', date:'May 2026', content:`<p>Content block is real. Every business owner hits it. You know you're supposed to be posting, but you sit down to create something and your mind goes blank. Here's a simple framework we use when that happens.</p><h2>Five categories to pull from</h2><ul><li><strong>Behind the scenes</strong> — show what it actually looks like to run your business day to day. People like this more than you'd expect.</li><li><strong>A tip or piece of advice</strong> — share something genuinely useful. No need to overthink it.</li><li><strong>A client win</strong> — even a simple "we helped a client do X" post builds trust fast.</li><li><strong>Your opinion on something</strong> — take a position on something in your industry. Posts with a point of view get more engagement than generic content.</li><li><strong>Answer a question you get asked a lot</strong> — if a customer asked you something this week, a hundred other people want to know the same thing.</li></ul><h2>Keep a running list</h2><p>Whenever an idea comes to you — in the car, during a client conversation, while you're working — write it down. A notes app, a voice memo, anything. The ideas come at random times. If you don't catch them, they're gone.</p><h2>You don't need to be creative</h2><p>The best content from small businesses is usually just honest and specific. You don't need a graphic designer or a professional photographer. You need to show up and say something real.</p>` }
   };
 
   function openPost(id) {
-    const post = posts[id];
-    document.getElementById('post-content').innerHTML = '<div class="single-tag">' + post.tag + '</div><h1 class="single-title">' + post.title + '</h1><div class="single-meta">BSP Marketing Inc. &nbsp;·&nbsp; ' + post.date + '</div><div class="single-content">' + post.content + '</div>';
+    const p = posts[id];
+    document.getElementById('post-content').innerHTML = '<div class="single-tag">' + p.tag + '</div><h1 class="single-title">' + p.title + '</h1><div class="single-meta">BSP Marketing Inc. &nbsp;&middot;&nbsp; ' + p.date + '</div><div class="single-content">' + p.content + '</div>';
     document.getElementById('post-list').style.display = 'none';
     document.getElementById('single-post').style.display = 'block';
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -1674,6 +1722,15 @@
   }
 
   // ── REVIEWS ──
+  // Note: Reviews are stored in your browser's local storage.
+  // When someone submits a review, BSP Marketing is notified by email (via Formspree).
+  // To display all submitted reviews publicly, a backend would be needed.
+  // For now, each visitor sees reviews they've submitted on their own device.
+
+  // SETUP: Create a second Formspree form for review notifications.
+  // Replace YOUR_REVIEW_FORM_ID below with that form's ID.
+  const FORMSPREE_REVIEWS = 'https://formspree.io/f/YOUR_REVIEW_FORM_ID';
+
   let selectedStars = 0;
 
   function setStars(val) {
@@ -1683,16 +1740,34 @@
     });
   }
 
-  function submitReview() {
+  async function submitReview() {
     const name = document.getElementById('r-name').value.trim();
     const company = document.getElementById('r-company').value.trim();
     const text = document.getElementById('r-text').value.trim();
     if (!name) { alert('Please enter your name.'); return; }
     if (!selectedStars) { alert('Please select a star rating.'); return; }
     if (!text) { alert('Please write a review.'); return; }
+
+    const review = {
+      name, company, stars: selectedStars, text,
+      date: new Date().toLocaleDateString('en-US', { month: 'long', year: 'numeric' })
+    };
+
+    // Save locally
     const reviews = getReviews();
-    reviews.push({ name, company, stars: selectedStars, text, date: new Date().toLocaleDateString('en-US', { month: 'long', year: 'numeric' }) });
+    reviews.push(review);
     localStorage.setItem('bsp_reviews', JSON.stringify(reviews));
+
+    // Notify BSP by email (silently, don't block submission if it fails)
+    try {
+      const fd = new FormData();
+      fd.append('name', name);
+      fd.append('company', company || 'Not provided');
+      fd.append('stars', selectedStars + ' stars');
+      fd.append('review', text);
+      await fetch(FORMSPREE_REVIEWS, { method: 'POST', body: fd, headers: { 'Accept': 'application/json' } });
+    } catch {}
+
     document.getElementById('form-wrap').style.display = 'none';
     document.getElementById('success-msg').style.display = 'block';
     renderReviews();
@@ -1710,13 +1785,13 @@
     if (reviews.length === 0) {
       grid.style.display = 'none';
       empty.style.display = 'block';
-      return;
+    } else {
+      grid.style.display = 'grid';
+      empty.style.display = 'none';
+      grid.innerHTML = reviews.slice().reverse().map(r =>
+        '<div class="review-card"><div class="stars">' + '★'.repeat(r.stars) + '☆'.repeat(5 - r.stars) + '</div><div class="review-text">"' + r.text + '"</div><div class="review-author">' + r.name + '</div>' + (r.company ? '<div class="review-company">' + r.company + '</div>' : '') + '<div class="review-date">' + r.date + '</div></div>'
+      ).join('');
     }
-    grid.style.display = 'grid';
-    empty.style.display = 'none';
-    grid.innerHTML = reviews.slice().reverse().map(r =>
-      '<div class="review-card"><div class="stars">' + '★'.repeat(r.stars) + '☆'.repeat(5 - r.stars) + '</div><div class="review-text">"' + r.text + '"</div><div class="review-author">' + r.name + '</div>' + (r.company ? '<div class="review-company">' + r.company + '</div>' : '') + '<div style="font-size:.75rem;color:var(--light-gray);margin-top:.5rem;">' + r.date + '</div></div>'
-    ).join('');
   }
 </script>
 
