@@ -884,9 +884,9 @@
             <option>Other</option>
           </select>
           <textarea name="message" placeholder="Tell us about your business and what you're trying to accomplish..."></textarea>
+          <input type="hidden" name="_subject" value="New contact form submission — BSP website" />
+          <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off" />
           <div id="form-status"></div>
-          <!-- SETUP: Create a free account at formspree.io, add bspmarketinginc@gmail.com,
-               then replace YOUR_FORM_ID below with your actual form ID -->
           <button type="submit" class="btn btn-dark" id="contact-submit">Send Message</button>
         </form>
       </div>
@@ -1638,9 +1638,8 @@
   });
 
   // ── CONTACT FORM (Formspree) ──
-  // SETUP: Go to formspree.io, create a free account, add bspmarketinginc@gmail.com,
-  // then replace YOUR_FORM_ID below with your actual Formspree form ID.
-  const FORMSPREE_CONTACT = 'https://formspree.io/f/YOUR_FORM_ID';
+  // Connected to Formspree — submissions email bspmarketinginc@gmail.com
+  const FORMSPREE_CONTACT = 'https://formspree.io/f/mwvjzeek';
 
   document.getElementById('contact-form').addEventListener('submit', async function(e) {
     e.preventDefault();
@@ -1727,9 +1726,9 @@
   // To display all submitted reviews publicly, a backend would be needed.
   // For now, each visitor sees reviews they've submitted on their own device.
 
-  // SETUP: Create a second Formspree form for review notifications.
-  // Replace YOUR_REVIEW_FORM_ID below with that form's ID.
-  const FORMSPREE_REVIEWS = 'https://formspree.io/f/YOUR_REVIEW_FORM_ID';
+  // Review notifications go to the same Formspree form for now.
+  // To separate them, create a second form and paste its ID here.
+  const FORMSPREE_REVIEWS = 'https://formspree.io/f/mwvjzeek';
 
   let selectedStars = 0;
 
@@ -1761,6 +1760,7 @@
     // Notify BSP by email (silently, don't block submission if it fails)
     try {
       const fd = new FormData();
+      fd.append('_subject', 'New ' + selectedStars + '-star review — BSP website');
       fd.append('name', name);
       fd.append('company', company || 'Not provided');
       fd.append('stars', selectedStars + ' stars');
