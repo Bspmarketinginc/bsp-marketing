@@ -1307,7 +1307,7 @@
     <span class="section-label reveal">Share Your Experience</span>
     <h2 class="section-title reveal" style="transition-delay:.1s">Leave a Review</h2>
     <p class="section-sub reveal" style="transition-delay:.2s">Worked with us? We'd love to hear from you.</p>
-    <p class="review-note reveal" style="transition-delay:.25s">Your review will be visible on this page after it's submitted. BSP Marketing will also receive a copy by email.</p>
+    <p class="review-note reveal" style="transition-delay:.25s">Reviews are checked before they're posted. Once approved, your review shows up on this page for everyone to see.</p>
     <div class="review-form reveal" style="transition-delay:.3s">
       <div id="form-wrap">
         <div class="r-row">
@@ -1333,7 +1333,7 @@
       <div class="success-msg" id="success-msg">
         <div class="checkmark">✅</div>
         <h3>Thanks for your review!</h3>
-        <p>Your feedback has been submitted.</p>
+        <p>We've received it. Once it's approved, it'll appear on this page for everyone to see.</p>
       </div>
     </div>
   </div>
@@ -1720,14 +1720,10 @@
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
-  // ── REVIEWS ──
-  // Note: Reviews are stored in your browser's local storage.
-  // When someone submits a review, BSP Marketing is notified by email (via Formspree).
-  // To display all submitted reviews publicly, a backend would be needed.
-  // For now, each visitor sees reviews they've submitted on their own device.
-
-  // Review notifications go to the same Formspree form for now.
-  // To separate them, create a second form and paste its ID here.
+  // ── REVIEWS (moderated) ──
+  // Public reviews are loaded from reviews.json — these show for EVERYONE.
+  // When a visitor submits a review, it is emailed to BSP via Formspree.
+  // To publish an approved review, add it to reviews.json and it appears here for all visitors.
   const FORMSPREE_REVIEWS = 'https://formspree.io/f/mwvjzeek';
 
   let selectedStars = 0;
@@ -1739,6 +1735,12 @@
     });
   }
 
+  function escapeHtml(str) {
+    return String(str)
+      .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+  }
+
   async function submitReview() {
     const name = document.getElementById('r-name').value.trim();
     const company = document.getElementById('r-company').value.trim();
@@ -1747,17 +1749,10 @@
     if (!selectedStars) { alert('Please select a star rating.'); return; }
     if (!text) { alert('Please write a review.'); return; }
 
-    const review = {
-      name, company, stars: selectedStars, text,
-      date: new Date().toLocaleDateString('en-US', { month: 'long', year: 'numeric' })
-    };
+    const btn = document.querySelector('.submit-btn');
+    if (btn) { btn.textContent = 'Submitting...'; btn.disabled = true; }
 
-    // Save locally
-    const reviews = getReviews();
-    reviews.push(review);
-    localStorage.setItem('bsp_reviews', JSON.stringify(reviews));
-
-    // Notify BSP by email (silently, don't block submission if it fails)
+    // Email the review to BSP for approval
     try {
       const fd = new FormData();
       fd.append('_subject', 'New ' + selectedStars + '-star review — BSP website');
@@ -1770,27 +1765,34 @@
 
     document.getElementById('form-wrap').style.display = 'none';
     document.getElementById('success-msg').style.display = 'block';
-    renderReviews();
   }
 
-  function getReviews() {
-    try { return JSON.parse(localStorage.getItem('bsp_reviews')) || []; } catch { return []; }
-  }
-
-  function renderReviews() {
-    const reviews = getReviews();
+  async function renderReviews() {
     const grid = document.getElementById('reviews-grid');
     const empty = document.getElementById('no-reviews');
     if (!grid) return;
-    if (reviews.length === 0) {
+
+    let reviews = [];
+    try {
+      const res = await fetch('reviews.json?v=' + Date.now());
+      if (res.ok) reviews = await res.json();
+    } catch {}
+
+    if (!reviews.length) {
       grid.style.display = 'none';
       empty.style.display = 'block';
     } else {
       grid.style.display = 'grid';
       empty.style.display = 'none';
-      grid.innerHTML = reviews.slice().reverse().map(r =>
-        '<div class="review-card"><div class="stars">' + '★'.repeat(r.stars) + '☆'.repeat(5 - r.stars) + '</div><div class="review-text">"' + r.text + '"</div><div class="review-author">' + r.name + '</div>' + (r.company ? '<div class="review-company">' + r.company + '</div>' : '') + '<div class="review-date">' + r.date + '</div></div>'
-      ).join('');
+      grid.innerHTML = reviews.map(r => {
+        const stars = Math.max(1, Math.min(5, parseInt(r.stars) || 5));
+        return '<div class="review-card"><div class="stars">' + '★'.repeat(stars) + '☆'.repeat(5 - stars) +
+          '</div><div class="review-text">"' + escapeHtml(r.text) + '"</div>' +
+          '<div class="review-author">' + escapeHtml(r.name) + '</div>' +
+          (r.company ? '<div class="review-company">' + escapeHtml(r.company) + '</div>' : '') +
+          (r.date ? '<div class="review-date">' + escapeHtml(r.date) + '</div>' : '') +
+          '</div>';
+      }).join('');
     }
   }
 </script>
