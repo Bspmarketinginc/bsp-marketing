@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Valento</title>
+  <meta name="description" content="Product details, materials and care for this Valento piece." />
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="assets/styles.css" />
+  <script src="assets/app.js" defer></script>
+</head>
+<body>
+
+  <header class="nav">
+    <div class="nav-inner">
+      <button class="icon-btn nav-toggle" data-nav-toggle aria-expanded="false" aria-controls="nav-links">Menu</button>
+      <ul class="nav-links" id="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="shop.html">Shop</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+      <a class="nav-logo" href="index.html">Valento</a>
+      <div class="nav-actions">
+        <button class="icon-btn" data-cart-open>
+          <span class="label">Bag</span>
+          <span class="cart-count" data-cart-count hidden>0</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section style="padding: calc(var(--nav-h) + 3.5rem) 0 5rem">
+      <div class="wrap">
+        <p class="crumbs" id="crumbs"><a href="shop.html">Shop</a></p>
+        <div id="pdp" style="margin-top:2rem"></div>
+      </div>
+    </section>
+
+    <section class="section" id="related-section" style="padding-top:0" hidden>
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Wears well with</p>
+          <h2>Pairs from the same edit</h2>
+        </div>
+        <div class="grid" id="related-grid"></div>
+      </div>
+    </section>
+  </main>
+
+  <div class="ticker">Complimentary shipping over $250 · 30-day returns · Repairs for life</div>
+
+  <footer class="footer">
+    <div class="wrap">
+      <div class="footer-top">
+        <div>
+          <div class="footer-logo">Valento</div>
+          <p>Considered clothing made in small runs, from fibres we can trace and makers we can name.</p>
+        </div>
+        <div>
+          <h4>Shop</h4>
+          <ul>
+            <li><a href="shop.html">All pieces</a></li>
+            <li><a href="shop.html?category=Outerwear">Outerwear</a></li>
+            <li><a href="shop.html?category=Knitwear">Knitwear</a></li>
+            <li><a href="shop.html?category=Accessories">Accessories</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>House</h4>
+          <ul>
+            <li><a href="about.html">Our story</a></li>
+            <li><a href="about.html#materials">Materials</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Care</h4>
+          <ul>
+            <li><a href="contact.html#shipping">Shipping &amp; returns</a></li>
+            <li><a href="contact.html#repairs">Repairs</a></li>
+            <li><a href="contact.html#sizing">Sizing help</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>&copy; <span data-year>2026</span> Valento. All rights reserved.</span>
+        <span>Milan · New York</span>
+      </div>
+    </div>
+  </footer>
+
+  <div class="drawer-backdrop" data-drawer-backdrop></div>
+  <aside class="drawer" data-drawer aria-label="Shopping bag">
+    <div class="drawer-head">
+      <h2>Your bag</h2>
+      <button class="icon-btn" data-cart-close aria-label="Close bag">Close</button>
+    </div>
+    <div class="drawer-body" data-cart-body></div>
+    <div class="drawer-foot">
+      <div class="drawer-total"><span>Subtotal</span><span data-cart-total>$0</span></div>
+      <button class="btn" data-checkout disabled>Checkout</button>
+      <p class="fine">Shipping and taxes calculated at checkout.</p>
+    </div>
+  </aside>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const root = document.getElementById('pdp');
+      const id = new URLSearchParams(location.search).get('id');
+      const product = id ? findProduct(id) : null;
+
+      if (!product) {
+        root.innerHTML = `
+          <div class="empty-state">
+            <h1 style="font-size:2rem;margin-bottom:1rem">We couldn't find that piece</h1>
+            <p style="margin-bottom:2rem">It may have sold through, or the link may be out of date.</p>
+            <a class="btn" href="shop.html">Back to the collection</a>
+          </div>`;
+        return;
+      }
+
+      document.title = `${product.name} — Valento`;
+      document.getElementById('crumbs').innerHTML =
+        `<a href="shop.html">Shop</a> / <a href="shop.html?category=${encodeURIComponent(product.category)}">${product.category}</a> / ${product.name}`;
+
+      const sizes = sizesFor(product);
+      let selectedSize = sizes.length === 1 ? sizes[0] : null;
+
+      root.innerHTML = `
+        <div class="pdp">
+          <div>
+            <div class="pdp-media" id="hero-media">${artwork(product, 0)}</div>
+            <div class="pdp-thumbs" id="thumbs">
+              ${[0, 1, 2].map((v) => `
+                <button type="button" data-variant="${v}" aria-pressed="${v === 0}" aria-label="View ${v + 1}">
+                  ${artwork(product, v)}
+                </button>`).join('')}
+            </div>
+          </div>
+
+          <div class="pdp-info">
+            <p class="eyebrow">${product.category}</p>
+            <h1>${product.name}</h1>
+            <p class="pdp-price">${money(product.price)}</p>
+            <p class="pdp-desc">${product.blurb}</p>
+
+            <span class="field-label" id="size-label">Size</span>
+            <div class="sizes" id="sizes" role="group" aria-labelledby="size-label">
+              ${sizes.map((s) => `<button type="button" class="size" data-size="${s}" aria-pressed="${s === selectedSize}">${s}</button>`).join('')}
+            </div>
+
+            <div class="pdp-actions">
+              <button class="btn" id="add">Add to bag</button>
+              <a class="btn btn-ghost" href="contact.html#sizing">Sizing help</a>
+            </div>
+            <p class="form-note" id="pdp-note" role="status"></p>
+
+            <div class="details">
+              <details open>
+                <summary>Materials</summary>
+                <div class="details-body">${product.materials}</div>
+              </details>
+              <details>
+                <summary>Care</summary>
+                <div class="details-body">${product.care}</div>
+              </details>
+              <details>
+                <summary>Fit &amp; sizing</summary>
+                <div class="details-body">
+                  <ul>
+                    <li>Cut relaxed — take your usual size for the intended fit.</li>
+                    <li>Model is 5'10" / 178cm and wears a size S.</li>
+                    <li>Between sizes? Size down in knitwear, up in outerwear.</li>
+                  </ul>
+                </div>
+              </details>
+              <details>
+                <summary>Shipping &amp; returns</summary>
+                <div class="details-body">
+                  Complimentary shipping on orders over $250. Returns accepted within 30 days,
+                  unworn with tags attached. Repairs offered at cost for the life of the garment.
+                </div>
+              </details>
+            </div>
+          </div>
+        </div>`;
+
+      // Gallery thumbs swap the hero artwork variant.
+      const thumbs = document.getElementById('thumbs');
+      thumbs.addEventListener('click', (e) => {
+        const btn = e.target.closest('[data-variant]');
+        if (!btn) return;
+        thumbs.querySelectorAll('button').forEach((b) => b.setAttribute('aria-pressed', String(b === btn)));
+        document.getElementById('hero-media').innerHTML = artwork(product, Number(btn.dataset.variant));
+      });
+
+      // Size picker.
+      const sizesEl = document.getElementById('sizes');
+      const note = document.getElementById('pdp-note');
+      sizesEl.addEventListener('click', (e) => {
+        const btn = e.target.closest('[data-size]');
+        if (!btn) return;
+        selectedSize = btn.dataset.size;
+        sizesEl.querySelectorAll('.size').forEach((b) =>
+          b.setAttribute('aria-pressed', String(b.dataset.size === selectedSize))
+        );
+        note.textContent = '';
+      });
+
+      document.getElementById('add').addEventListener('click', () => {
+        if (!selectedSize) {
+          note.textContent = 'Please choose a size first.';
+          return;
+        }
+        Cart.add(product.id, selectedSize, 1);
+        note.textContent = '';
+        toast('Added to bag');
+        openDrawer();
+      });
+
+      // Related: same category first, then fill from the rest of the catalog.
+      const related = [
+        ...CATALOG.filter((p) => p.id !== product.id && p.category === product.category),
+        ...CATALOG.filter((p) => p.id !== product.id && p.category !== product.category)
+      ].slice(0, 4);
+
+      if (related.length) {
+        document.getElementById('related-grid').innerHTML = related.map(productCard).join('');
+        document.getElementById('related-section').hidden = false;
+      }
+    });
+  </script>
+
+</body>
+</html>

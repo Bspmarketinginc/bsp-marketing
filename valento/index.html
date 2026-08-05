@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Valento — Considered Clothing, Made to Last</title>
+  <meta name="description" content="Valento makes quietly modern wardrobe pieces in small runs — wool coats, cashmere knits and washed linen, cut for a life that keeps moving." />
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="assets/styles.css" />
+  <script src="assets/app.js" defer></script>
+</head>
+<body>
+
+  <header class="nav">
+    <div class="nav-inner">
+      <button class="icon-btn nav-toggle" data-nav-toggle aria-expanded="false" aria-controls="nav-links">Menu</button>
+      <ul class="nav-links" id="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="shop.html">Shop</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+      <a class="nav-logo" href="index.html">Valento</a>
+      <div class="nav-actions">
+        <button class="icon-btn" data-cart-open>
+          <span class="label">Bag</span>
+          <span class="cart-count" data-cart-count hidden>0</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- HERO -->
+    <section class="hero">
+      <div class="wrap">
+        <p class="eyebrow">Autumn / Winter — Collection 04</p>
+        <h1>Quiet clothes,<br />built to stay.</h1>
+        <p>Wool cut long, cashmere knit loose, linen washed soft. Made in small runs by mills and makers we can name.</p>
+        <div class="hero-actions">
+          <a class="btn" href="shop.html">Shop the collection</a>
+          <a class="btn btn-ghost" href="about.html">Our story</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- MARQUEE -->
+    <div class="marquee" aria-hidden="true">
+      <div class="marquee-track">
+        <span>Woven in Biella</span><span>—</span><span>Small-run production</span><span>—</span>
+        <span>Free shipping over $250</span><span>—</span><span>Repairs for life</span><span>—</span>
+        <span>Woven in Biella</span><span>—</span><span>Small-run production</span><span>—</span>
+        <span>Free shipping over $250</span><span>—</span><span>Repairs for life</span><span>—</span>
+      </div>
+    </div>
+
+    <!-- FEATURED -->
+    <section class="section">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <p class="eyebrow">The Autumn Edit</p>
+          <h2>Six pieces, endlessly rearranged.</h2>
+          <p>The core of the season — outerwear and knitwear that carry the rest of the wardrobe.</p>
+        </div>
+        <div class="grid reveal" id="featured-grid"></div>
+        <p style="margin-top:3rem"><a class="link-underline" href="shop.html">View all 12 pieces</a></p>
+      </div>
+    </section>
+
+    <!-- SPLIT FEATURE -->
+    <section class="section" style="padding-top:0">
+      <div class="wrap">
+        <div class="split">
+          <div class="split-media reveal" id="split-media"></div>
+          <div class="reveal">
+            <p class="eyebrow">The making</p>
+            <h2>We buy the cloth before we draw the clothes.</h2>
+            <p>Every Valento season starts at the mill, not the sketchbook. We choose a handful of fabrics we would happily wear for a decade, then design the smallest number of pieces that do them justice.</p>
+            <p>It means fewer styles, longer lead times and no midseason drops. It also means the coat you buy this year is the same coat we will still be repairing in ten.</p>
+            <a class="link-underline" href="about.html">How we work</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- BAND -->
+    <section class="band">
+      <div class="wrap">
+        <p class="eyebrow">Standards</p>
+        <h2>Three rules we don't bend.</h2>
+        <p>They are unglamorous, and they are the whole business.</p>
+        <div class="pillars">
+          <div>
+            <h3>Natural fibres first</h3>
+            <p>Wool, cashmere, linen, cotton and silk. Where a synthetic earns its place — stretch in a trouser, a coat lining — we say so on the product page.</p>
+          </div>
+          <div>
+            <h3>Runs of 300 or fewer</h3>
+            <p>We make what we expect to sell and restock the pieces that last. Nothing is discounted into a landfill at the end of the season.</p>
+          </div>
+          <div>
+            <h3>Repairs, not replacements</h3>
+            <p>Send anything back for mending at cost, for as long as you own it. Buttons, seams, moth holes, worn cuffs.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- NEW ARRIVALS -->
+    <section class="section">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <p class="eyebrow">Just landed</p>
+          <h2>New this month</h2>
+        </div>
+        <div class="grid reveal" id="new-grid"></div>
+      </div>
+    </section>
+
+    <!-- NEWSLETTER -->
+    <section class="section" style="padding-top:0">
+      <div class="wrap">
+        <div class="split">
+          <div class="reveal">
+            <p class="eyebrow">Letters</p>
+            <h2>Six emails a year. That's the promise.</h2>
+            <p>Restock notices, the occasional mill visit, and first access when a run is small. No countdown timers.</p>
+          </div>
+          <form class="reveal" data-form novalidate>
+            <label class="field-label" for="signup-email">Email address</label>
+            <div class="signup">
+              <input id="signup-email" type="email" name="email" placeholder="you@example.com" required autocomplete="email" />
+              <button class="btn" type="submit">Subscribe</button>
+            </div>
+            <p class="form-note" data-note role="status"></p>
+          </form>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <div class="ticker">Complimentary shipping over $250 · 30-day returns · Repairs for life</div>
+
+  <footer class="footer">
+    <div class="wrap">
+      <div class="footer-top">
+        <div>
+          <div class="footer-logo">Valento</div>
+          <p>Considered clothing made in small runs, from fibres we can trace and makers we can name.</p>
+        </div>
+        <div>
+          <h4>Shop</h4>
+          <ul>
+            <li><a href="shop.html">All pieces</a></li>
+            <li><a href="shop.html?category=Outerwear">Outerwear</a></li>
+            <li><a href="shop.html?category=Knitwear">Knitwear</a></li>
+            <li><a href="shop.html?category=Accessories">Accessories</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>House</h4>
+          <ul>
+            <li><a href="about.html">Our story</a></li>
+            <li><a href="about.html#materials">Materials</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Care</h4>
+          <ul>
+            <li><a href="contact.html#shipping">Shipping &amp; returns</a></li>
+            <li><a href="contact.html#repairs">Repairs</a></li>
+            <li><a href="contact.html#sizing">Sizing help</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>&copy; <span data-year>2026</span> Valento. All rights reserved.</span>
+        <span>Milan · New York</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- CART DRAWER -->
+  <div class="drawer-backdrop" data-drawer-backdrop></div>
+  <aside class="drawer" data-drawer aria-label="Shopping bag">
+    <div class="drawer-head">
+      <h2>Your bag</h2>
+      <button class="icon-btn" data-cart-close aria-label="Close bag">Close</button>
+    </div>
+    <div class="drawer-body" data-cart-body></div>
+    <div class="drawer-foot">
+      <div class="drawer-total"><span>Subtotal</span><span data-cart-total>$0</span></div>
+      <button class="btn" data-checkout disabled>Checkout</button>
+      <p class="fine">Shipping and taxes calculated at checkout.</p>
+    </div>
+  </aside>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const featured = [
+        'marcella-wool-overcoat', 'nebbia-cashmere-knit', 'corso-pleated-trouser',
+        'vela-silk-slip-dress', 'ponte-cotton-blazer', 'sabbia-linen-shirt'
+      ].map(findProduct);
+      document.getElementById('featured-grid').innerHTML = featured.map(productCard).join('');
+
+      document.getElementById('new-grid').innerHTML =
+        CATALOG.filter((p) => p.badge === 'New').map(productCard).join('');
+
+      document.getElementById('split-media').innerHTML = artwork(findProduct('ponte-cotton-blazer'), 2);
+    });
+  </script>
+
+</body>
+</html>
